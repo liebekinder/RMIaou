@@ -10,5 +10,5 @@ import java.rmi.Remote;
  */
 public interface IChatRoom extends Remote{
 	public void send(String message);
-//	public void register(IClient client);
+	public void register(IMessageListener clientListener);
 }

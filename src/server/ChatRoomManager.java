@@ -1,9 +1,11 @@
 package server;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Map;
+import java.util.Set;
 
+import common.IChatRoom;
 import common.IChatRoomManager;
 
 public class ChatRoomManager extends UnicastRemoteObject implements IChatRoomManager {
@@ -24,7 +26,7 @@ public class ChatRoomManager extends UnicastRemoteObject implements IChatRoomMan
 	}
 
 	@Override
-	public String getChatRoomsList() throws RemoteException {
+	public Set<String> getChatRoomsList() throws RemoteException {
 		return server.getChatRoomsList();
 	}
 

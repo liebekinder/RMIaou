@@ -2,6 +2,8 @@ package common;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Client interface for chatroom management
@@ -15,7 +17,7 @@ public interface IChatRoomManager extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public String getChatRoomsList() throws RemoteException;
+	public Set<String> getChatRoomsList() throws RemoteException;
 	
 	/**
 	 * Create a chatroom by using <code>name</code>
