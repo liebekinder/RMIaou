@@ -1,6 +1,7 @@
 package common;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * A magnificent chatroom
@@ -9,6 +10,6 @@ import java.rmi.Remote;
  *
  */
 public interface IChatRoom extends Remote{
-	public void send(String message);
-	public void register(IMessageListener clientListener);
+	public void send(String message) throws RemoteException;
+	public void register(int port) throws RemoteException;
 }

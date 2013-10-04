@@ -16,6 +16,6 @@ public interface IMessageListener extends Remote{
 	 * @param message
 	 * @throws RemoteException
 	 */
-	void sendMessage(String message) throws RemoteException;
+	public void sendMessage(String message) throws RemoteException;
 
 }

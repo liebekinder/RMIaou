@@ -6,12 +6,18 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import common.IChatRoom;
 import common.IChatRoomManager;
 
+/**
+ * A chat server.
+ * 
+ * @author Ornicare
+ *
+ */
 public class Server implements IChatRoomManager{
 
 	private Map<String, IChatRoom> chatRoomList;
@@ -26,7 +32,7 @@ public class Server implements IChatRoomManager{
 		this.port = port;
 
 		//System.setProperty("java.rmi.server.hostname","192.168.0.17");
-		LocateRegistry.createRegistry(port); // réserve le port 8090
+		LocateRegistry.createRegistry(port); 
 		Naming.bind("rmi://localhost:" + this.port + "/"+this.serverName, chatRoomManager);
 			
 	}
@@ -36,8 +42,8 @@ public class Server implements IChatRoomManager{
 	 * Get the list of chatRoom name's
 	 */
 	@Override
-	public Set<String> getChatRoomsList() throws RemoteException {
-		return chatRoomList.keySet();
+	public HashSet<String> getChatRoomsList() throws RemoteException {
+		return new HashSet<String>(chatRoomList.keySet());
 	}
 
 	/**
@@ -46,8 +52,26 @@ public class Server implements IChatRoomManager{
 	@Override
 	public String createChatRoom(String name) throws RemoteException {
 		if(chatRoomList.containsKey(name)) return "E00: ChatRoom already exists";
-		chatRoomList.put(name, new ChatRoom(name));
+		
+		try {
+			chatRoomList.put(name, new ChatRoom(name, this));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (AlreadyBoundException e) {
+			e.printStackTrace();
+		}
+		
 		return "S00: ChatRoom successfully created";
+	}
+
+
+	public int getPort() {
+		return port;
+	}
+
+
+	public String getName() {
+		return serverName;
 	}
 
 }

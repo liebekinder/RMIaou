@@ -1,14 +1,25 @@
 package server;
 
+import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
 import common.IChatRoom;
 import common.IMessageListener;
 
-public class ChatRoom implements IChatRoom{
+public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * List of clients who subscribes to this chatroom
 	 */
@@ -16,16 +27,18 @@ public class ChatRoom implements IChatRoom{
 	private String name;
 	
 	
-	public ChatRoom(String name) {
+	public ChatRoom(String name, Server server) throws RemoteException, MalformedURLException, AlreadyBoundException {
 		this.name = name;
 		remoteClientsList = new ArrayList<IMessageListener>();
+		
+		Naming.bind("rmi://localhost:" + server.getPort() + "/"+server.getName()+"/"+this.name, this);
 	}
 	
 	/**
 	 * Send a message to all the clients.
 	 */
 	@Override
-	public void send(String message) {
+	public void send(String message) throws RemoteException {
 		diffuse(message);
 	}
 	
@@ -41,7 +54,17 @@ public class ChatRoom implements IChatRoom{
 	 * Used by a client to subscribe to this chatroom
 	 */
 	@Override
-	public void register(IMessageListener clientListener) {
+	public void register(int port) throws RemoteException{
+		IMessageListener clientListener = null;
+		try {
+			clientListener = (IMessageListener) Naming.lookup("rmi://"+RemoteServer.getClientHost()+":"+port+"/client");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (ServerNotActiveException e) {
+			e.printStackTrace();
+		}
 		remoteClientsList.add(new ClientRemoteListener(clientListener));
 	}
 	
