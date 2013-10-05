@@ -1,5 +1,6 @@
 package client;
 
+import java.net.BindException;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
@@ -21,7 +22,7 @@ public class Client {
 	private IChatRoom chatRoom;
 	private MessageListener clientListener;
 
-	public Client(int clientPort) throws RemoteException, MalformedURLException, AlreadyBoundException {
+	public Client(int clientPort) throws BindException, RemoteException, MalformedURLException, AlreadyBoundException {
 		clientListener = new MessageListener();
 		this.clientPort = clientPort;
 		
@@ -55,6 +56,14 @@ public class Client {
 	}
 	
 	/**
+	 * Set output.
+	 * @param gui
+	 */
+	public void setOutputGui(ClientChatRoomGUI gui) {
+	    clientListener.setOutputGui(gui);
+	}
+	
+	/**
 	 * 
 	 * @return currently connected chatRoom
 	 */
@@ -79,10 +88,18 @@ public class Client {
 
 	public void send(String message) {
 		try {
-			chatRoom.send(message);
+			chatRoom.send("["+ClientConfig.pseudo+"] "+message);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
+
+    public void sendRaw(String message) {
+        try {
+            chatRoom.send(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

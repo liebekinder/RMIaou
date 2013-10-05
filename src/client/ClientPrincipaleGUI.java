@@ -1,35 +1,299 @@
 package client;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.BindException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class ClientPrincipaleGUI extends JFrame{
+public class ClientPrincipaleGUI extends JFrame {
 
-	private static final long serialVersionUID = 3572024391545427383L;
-	private int minWidth = 300; 
-	private int minHeight = 600; 
-	
-	
-	public ClientPrincipaleGUI(){
-		super();
-		JFrame principal = new JFrame();
-		
-		JLabel imageLabel = new JLabel();
-		JLabel domainNameLabel = new JLabel("Please type the server's name or IP");
-		JTextField domaineNameZone = new JTextField();
-		JButton connectButton = new JButton("connect to server");
-		
-		BoxLayout mainLayout = new BoxLayout(principal, MAXIMIZED_VERT);
-		principal.add(imageLabel);
-		principal.add(domainNameLabel);
-		principal.add(domaineNameZone);
-		principal.add(connectButton);
-		
-		principal.setSize(minHeight,minHeight);
-		principal.setVisible(true);		
-	}
+    private static final long serialVersionUID = 3572024391545427383L;
+
+    private int minWidth = 400;
+
+    private int minHeight = 600;
+
+    private JTextField domaineNameZone;
+
+    private JPanel principal;
+
+    private DefaultListModel<String> listModel;
+
+    private JPanel principalChatRoom;
+
+    private Client client;
+
+    private JTextField chatRoomName;
+
+    private JPanel principalChatRoomGui;
+
+    private ConstrainedTextField chatRoomInput;
+
+    private JList<String> list;
+
+    private ClientChatRoomGUI chatRoomGui;
+
+    public ClientPrincipaleGUI() {
+        super();
+
+        initializeConnectionView();
+        initializeChatRoomSelection();
+        initializeChatRoomGui();
+
+        this.add(principal);
+        this.setSize(minWidth, minHeight);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    private void initializeChatRoomGui() {
+        principalChatRoomGui = new JPanel();
+        principalChatRoomGui.setLayout(new BoxLayout(principalChatRoomGui,
+                BoxLayout.PAGE_AXIS));
+        chatRoomInput = new ConstrainedTextField();
+        chatRoomInput.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+                client.send(chatRoomInput.getText());
+                chatRoomInput.setText("");
+
+            }
+        });
+        chatRoomGui = new ClientChatRoomGUI();
+        
+        principalChatRoomGui.add(chatRoomGui);
+        principalChatRoomGui.add(chatRoomInput);
+
+    }
+
+    private void initializeConnectionView() {
+        principal = new JPanel();
+
+        JLabel imageLabel = new JLabel();
+        JLabel domainNameLabel = new JLabel(
+                "<html>Please type the server's name (In this demo version,<br/> ip is localhost and port 10010)</html>");
+
+        domaineNameZone = new ConstrainedTextField();
+        // Dimension maxSize = domaineNameZone.getMaximumSize();
+        // maxSize.height = domaineNameZone.getMinimumSize().height;
+        // domaineNameZone.setMaximumSize(maxSize);
+        domaineNameZone.setText("MyFirstServer");
+
+        JButton connectButton = new JButton("connect to server");
+        connectButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+                connect();
+            }
+        });
+
+        principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
+        principal.add(imageLabel);
+        principal.add(domainNameLabel);
+        principal.add(domaineNameZone);
+        principal.add(connectButton);
+
+    }
+
+    private void initializeChatRoomSelection() {
+        principalChatRoom = new JPanel();
+        principalChatRoom.setLayout(new BoxLayout(principalChatRoom,
+                BoxLayout.PAGE_AXIS));
+
+        listModel = new DefaultListModel<String>();
+        list = new JList<String>(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                int index = -1;
+                @SuppressWarnings("unchecked")
+                JList<String> list = (JList<String>) evt.getSource();
+                if (evt.getClickCount() == 1) {
+                    index = list.locationToIndex(evt.getPoint());
+                    if (index > -1) {
+                        chatRoomName.setText((String) listModel.get(index));
+                    }
+                } else if (evt.getClickCount() >= 2) {
+                    index = list.locationToIndex(evt.getPoint());
+                    if (index > -1) {
+                        connectToChatRoom((String) listModel.get(index));
+                    }
+                }
+
+            }
+        });
+        list.setVisibleRowCount(20);
+        JScrollPane listScrollPane = new JScrollPane(list);
+
+        chatRoomName = new ConstrainedTextField();
+        
+        JButton goButton = new JButton("Go !");
+        
+        goButton.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent arg0) {
+                boolean alreadyExists = false;
+
+                String chatRoomString = chatRoomName.getText();
+                for(int i = 0;i< listModel.getSize();++i) {
+                    if(chatRoomString.equals((String) listModel.get(i))) alreadyExists = true;
+                }
+
+                if(!alreadyExists) {
+                    try {
+                        System.out.println(client.getServer().createChatRoom(chatRoomString));;
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        System.exit(1);
+                    }
+                }
+                connectToChatRoom(chatRoomName.getText());
+            }
+        });
+
+        principalChatRoom.add(listScrollPane);
+        principalChatRoom
+                .add(new JLabel(
+                        "<html>Select or type the name of an existing chatroom<br/> or enter a new one to create it.</html>"));
+        principalChatRoom.add(chatRoomName);
+        principalChatRoom.add(goButton);
+    }
+
+    /**
+     * Connect the client to a selected chatroom
+     * 
+     * @param source
+     */
+    protected void connectToChatRoom(String chatRoomName) {
+        changePanel(principalChatRoomGui);
+        setTitle(ClientConfig.pseudo+"@"+chatRoomName);
+        try {
+            client.connectToChatRoom(chatRoomName);
+        } catch (Exception e) {
+            System.out.println("ERR: Cannot connect to chatroom. Aborting.");
+            System.exit(1);
+        }
+        client.sendRaw(ClientConfig.pseudo + " join the chatroom.");
+    }
+
+    /**
+     * Connect this client to a server.
+     */
+    protected void connect() {
+        int port = ClientConfig.minPort;
+        boolean portFound = false;
+        client = null;
+        while (!portFound && port <= ClientConfig.maxPort) {
+            try {
+                client = new Client(port);
+                portFound = true;
+                client.setOutputGui(chatRoomGui);
+            } catch (RemoteException e) {
+                if (e.getCause() instanceof BindException) {
+                    System.out.println("ERR: port " + port
+                            + " already bound. Trying another port.");
+                    port++;
+                } else {
+                    System.out
+                            .println("ERR: Fatal error. Cannot bind client. Aborting.");
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+
+            } catch (Exception e) {
+                System.out
+                        .println("ERR: Fatal error. Cannot bind client. Aborting.");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+
+        if (client == null) {
+            System.err
+                    .println("ERR: Failed to create client instance. Aborting.");
+            System.exit(1);
+        }
+
+        // TODO demo version : ip and port fixed
+        try {
+            client.connectToServer("localhost", domaineNameZone.getText(),
+                    10010);
+
+        } catch (Exception e) {
+            System.out
+                    .println("ERR: Fatal error when connecting to server. Aborting.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        System.out.println("Succefully connected to server.");
+        changePanel(principalChatRoom);
+
+        Set<String> chatRoomList;
+        try {
+            chatRoomList = client.getServer().getChatRoomsList();
+            for (String chatRoomName : chatRoomList) {
+                listModel.addElement(chatRoomName);
+            }
+        } catch (RemoteException e) {
+            System.out.println("ERR: Cannot fetch chatroom list. Aborting.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private void changePanel(final JPanel panel) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                getContentPane().removeAll();
+                getContentPane().add(panel, BorderLayout.CENTER);
+                getContentPane().doLayout();
+                getContentPane().validate();
+                update(getGraphics());
+            }
+        });
+
+    }
+
+    private class ConstrainedTextField extends JTextField {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        public ConstrainedTextField() {
+            Dimension maxSize = this.getMaximumSize();
+            maxSize.height = this.getMinimumSize().height;
+            this.setMaximumSize(maxSize);
+        }
+    }
 
 }

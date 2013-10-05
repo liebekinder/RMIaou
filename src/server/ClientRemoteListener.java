@@ -28,7 +28,6 @@ public class ClientRemoteListener implements IMessageListener {
 	/**
 	 * Send the message to the client
 	 */
-	@Override
 	public synchronized void sendMessage(String message) throws RemoteException {
 		clientListener.sendMessage(message);
 	}

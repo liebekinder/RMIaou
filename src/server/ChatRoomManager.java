@@ -23,12 +23,10 @@ public class ChatRoomManager extends UnicastRemoteObject implements IChatRoomMan
 		this.server = server;
 	}
 
-	@Override
 	public HashSet<String> getChatRoomsList() throws RemoteException {
 		return server.getChatRoomsList();
 	}
 
-	@Override
 	public String createChatRoom(String name) throws RemoteException {
 		return server.createChatRoom(name);
 	}

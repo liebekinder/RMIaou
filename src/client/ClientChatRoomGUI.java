@@ -2,11 +2,7 @@ package client;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.WindowConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.Style;
@@ -20,7 +16,7 @@ import javax.swing.text.StyledDocument;
  * @author Ornicare
  *
  */
-public class ClientChatRoomGUI extends JFrame {
+public class ClientChatRoomGUI extends JTextPane {
 	
 	/**
 	 * Number maximum of total characters
@@ -62,8 +58,6 @@ public class ClientChatRoomGUI extends JFrame {
      */
 	private StyledDocument doc;
 	
-	private JTextPane textPane = new JTextPane();
-	
 	private static final long serialVersionUID = 1L;
 	
 	public Font getDefaultFont() {
@@ -97,31 +91,28 @@ public class ClientChatRoomGUI extends JFrame {
      * <p>
      * Create a new GUI for the Console with defaults font, display text's color, and background.
      * </p>
+	 * @param client 
      */
 	public ClientChatRoomGUI() {
 		
-		this.setTitle("Console");
 		this.setSize(500, 500);
-		this.setLocationRelativeTo(null);
-		
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		
-			textPane.setEditable(false);
-			textPane.setBackground(defaultColorBackground);
-			textPane.setForeground(defaultColor);
+
+		this.setEditable(false);
+		this.setBackground(defaultColorBackground);
+		this.setForeground(defaultColor);
 		//Ajout d'un scrollPane pour avoir des scrollBars
-		JScrollPane scrollP = new JScrollPane(textPane);
-		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.setContentPane(scrollP);
+//		JScrollPane scrollP = new JScrollPane(textPane);
+//		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		this.setContentPane(scrollP);
 			
-		DefaultCaret caret = (DefaultCaret)textPane.getCaret();
+		DefaultCaret caret = (DefaultCaret)this.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
 		//Contenu du textPane
-		doc = textPane.getStyledDocument();
+		doc = this.getStyledDocument();
 
-		this.setVisible(true);	
+//		this.setVisible(true);	
 	}
 
 	/**
@@ -160,7 +151,7 @@ public class ClientChatRoomGUI extends JFrame {
 	 * @param color <code>text</code>'s color
 	 */
 	public void addText(String text, Font font, Color color) {
-		Style style = textPane.addStyle("I'm a Style", null);
+		Style style = this.addStyle("I'm a Style", null);
         StyleConstants.setForeground(style, color);
         StyleConstants.setFontFamily(style, font.getFamily());
         StyleConstants.setFontSize(style, font.getSize());
@@ -181,17 +172,6 @@ public class ClientChatRoomGUI extends JFrame {
 
 	public void setMaxChar(int maxChar) {
 		this.maxChar = maxChar;
-	}
-
-
-	/**
-	 * Equivalent of WindowConstants.DISPOSE_ON_CLOSE
-	 * Hide and dispose the window.
-	 * 
-	 */
-	public void close() {
-		setVisible(false);
-		dispose();
 	}
 
 }

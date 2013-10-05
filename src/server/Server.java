@@ -41,7 +41,6 @@ public class Server implements IChatRoomManager{
 	/**
 	 * Get the list of chatRoom name's
 	 */
-	@Override
 	public HashSet<String> getChatRoomsList() throws RemoteException {
 		return new HashSet<String>(chatRoomList.keySet());
 	}
@@ -49,7 +48,6 @@ public class Server implements IChatRoomManager{
 	/**
 	 * Try to create a new chatRoom. Return a success or an error message.
 	 */
-	@Override
 	public String createChatRoom(String name) throws RemoteException {
 		if(chatRoomList.containsKey(name)) return "E00: ChatRoom already exists";
 		

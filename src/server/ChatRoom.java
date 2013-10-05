@@ -37,7 +37,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 	/**
 	 * Send a message to all the clients.
 	 */
-	@Override
 	public void send(String message) throws RemoteException {
 		diffuse(message);
 	}
@@ -53,7 +52,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 	/**
 	 * Used by a client to subscribe to this chatroom
 	 */
-	@Override
 	public void register(int port) throws RemoteException{
 		IMessageListener clientListener = null;
 		try {
@@ -93,8 +91,8 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 	/**
 	 * Clean all removable client
 	 */
-	private void clean() {
-		List<IMessageListener> copyMessagesListeners = remoteClientsList;
+	private synchronized void clean() {
+		List<IMessageListener> copyMessagesListeners = new ArrayList<IMessageListener>(remoteClientsList);
 		
 		for(IMessageListener remoteMessageListener : copyMessagesListeners) {
 			if(((ClientRemoteListener) remoteMessageListener).isRemovable()) remoteClientsList.remove(remoteMessageListener);
@@ -109,7 +107,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 	 */
 	private class CleanRunnable implements Runnable {
 		
-		@Override
 		public void run() {
 			clean();
 		}
@@ -141,7 +138,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 			this.message = message;
 		}
 		
-		@Override
 		public void run() {
 			try {
 				remoteMessageListener.sendMessage(message);

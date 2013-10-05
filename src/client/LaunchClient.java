@@ -10,18 +10,20 @@ import java.util.Set;
 public class LaunchClient {
 	
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException, AlreadyBoundException {
-		Client client = new Client(10012);
-		client.connectToServer("localhost", "MyFirstServer", 10010);
-		Set<String> chatRoomList = client.getServer().getChatRoomsList();
-		for(String chatRoomName : chatRoomList) {
-			System.out.println(chatRoomName);
-		}
-		
-		System.out.println(client.getServer().createChatRoom("camembert"));
-		
-		client.connectToChatRoom("camembert");
-		
-		client.send("Je suis un camembert");
+	    
+	    new ClientPrincipaleGUI();
+//		Client client = new Client(10011);
+//		client.connectToServer("localhost", "MyFirstServer", 10010);
+//		Set<String> chatRoomList = client.getServer().getChatRoomsList();
+//		for(String chatRoomName : chatRoomList) {
+//			System.out.println(chatRoomName);
+//		}
+//		
+//		System.out.println(client.getServer().createChatRoom("camembert"));
+//		
+//		client.connectToChatRoom("camembert");
+//		
+//		client.send("Je suis un camembert");
 		
 
 		

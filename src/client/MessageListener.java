@@ -11,15 +11,20 @@ public class MessageListener extends UnicastRemoteObject implements IMessageList
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+    private ClientChatRoomGUI gui;
 
 	protected MessageListener() throws RemoteException {
 		super();
 	}
 
 
-	@Override
 	public void sendMessage(String message) throws RemoteException {
-		System.out.println(message);
+		if(gui!=null)gui.addText(message+"\n");
 	}
+
+
+    public void setOutputGui(ClientChatRoomGUI gui) {
+        this.gui = gui; 
+    }
 
 }
