@@ -2,6 +2,11 @@ package client.colorWrapper;
 
 import java.awt.Color;
 
+/**
+ * Change color for pseudo and system messages.
+ * @author Ornicare
+ *
+ */
 public class ColorWrapperPseudo extends ColorWrapperBase implements IColorWrapper{
 
 	@Override

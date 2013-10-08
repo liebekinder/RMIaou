@@ -2,6 +2,11 @@ package client.colorWrapper;
 
 import client.ClientChatRoomGUI;
 
+/**
+ * Bas wrapper : do nothing.
+ * @author Ornicare
+ *
+ */
 public class ColorWrapperBase implements IColorWrapper{
 
 	protected ClientChatRoomGUI chatRoomGui;
