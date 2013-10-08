@@ -25,7 +25,7 @@ public interface IChatRoomManager extends Remote {
 	 * @return A String that indicate if the process is successful or not
 	 * @throws RemoteException
 	 */
-	public String createChatRoom(String name) throws RemoteException;
+	public String createChatRoom(String name, String owner) throws RemoteException;
 	
 	/**
 	 * Delete  a chatroom by using <code>name</code>
@@ -34,6 +34,5 @@ public interface IChatRoomManager extends Remote {
 	 * @return A String that indicate if the process is successful or not
 	 * @throws RemoteException
 	 */
-	//TODO extension
-//	public String deleteChatRoom(String name) throws RemoteException;
+	public String deleteChatRoom(String name, String pseudo) throws RemoteException;
 }

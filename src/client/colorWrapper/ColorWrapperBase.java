@@ -18,7 +18,6 @@ public class ColorWrapperBase implements IColorWrapper{
 		chatRoomGui.addText(text);
 	}
 
-	@Override
 	public void setOutputGui(ClientChatRoomGUI gui) {
 		chatRoomGui = gui;
 	}

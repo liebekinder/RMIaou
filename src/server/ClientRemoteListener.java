@@ -12,6 +12,15 @@ import common.IMessageListener;
  */
 public class ClientRemoteListener implements IMessageListener {
 
+    /**
+     * Save the pseudo used by the client to do not use the network to retrieve it
+     */
+    private String pseudo;
+    
+    public String getPseudo() throws RemoteException {
+        return pseudo;
+    }
+    
 	/**
 	 * Handled client Listener
 	 */
@@ -21,7 +30,8 @@ public class ClientRemoteListener implements IMessageListener {
 	 */
 	private boolean isRemovable;
 
-	public ClientRemoteListener(IMessageListener clientListener) {
+	public ClientRemoteListener(IMessageListener clientListener, String pseudo) {
+	    this.pseudo = pseudo;
 		this.clientListener = clientListener;
 	}
 
@@ -39,5 +49,9 @@ public class ClientRemoteListener implements IMessageListener {
 	public boolean isRemovable() {
 		return isRemovable;
 	}
+
+    public void sendDeconnect() throws RemoteException {
+        clientListener.sendDeconnect();
+    }
 
 }
