@@ -48,11 +48,11 @@ public class Server implements IChatRoomManager{
 	/**
 	 * Try to create a new chatRoom. Return a success or an error message.
 	 */
-	public String createChatRoom(String name) throws RemoteException {
+	public String createChatRoom(String name, String owner) throws RemoteException {
 		if(chatRoomList.containsKey(name)) return "E00: ChatRoom already exists";
 		
 		try {
-			chatRoomList.put(name, new ChatRoom(name, this));
+			chatRoomList.put(name, new ChatRoom(name, this, owner));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (AlreadyBoundException e) {
@@ -71,5 +71,24 @@ public class Server implements IChatRoomManager{
 	public String getName() {
 		return serverName;
 	}
+
+
+    public String deleteChatRoom(String name, String pseudo)
+            throws RemoteException {
+        if(!chatRoomList.containsKey(name)) 
+            return "ERR: Chatroom doesn't exists.";
+        
+        IChatRoom chatRoomToDelete = chatRoomList.get(name);
+        
+        if(!chatRoomToDelete.getOwner().equals(pseudo))
+            return "ERR: You're not the owner of the chatroom";
+        
+        return chatRoomToDelete.delete();
+    }
+
+
+    public void formallyDeleteChatRoom(String name) {
+        chatRoomList.remove(name);
+    }
 
 }

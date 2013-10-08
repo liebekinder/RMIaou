@@ -40,4 +40,8 @@ public class ClientRemoteListener implements IMessageListener {
 		return isRemovable;
 	}
 
+    public void sendDeconnect() throws RemoteException {
+        clientListener.sendDeconnect();
+    }
+
 }

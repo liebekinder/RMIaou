@@ -23,6 +23,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
+import sun.misc.Cleaner;
+
 public class ClientPrincipaleGUI extends JFrame {
 
     private static final long serialVersionUID = 3572024391545427383L;
@@ -167,7 +169,7 @@ public class ClientPrincipaleGUI extends JFrame {
 
                 if(!alreadyExists) {
                     try {
-                        System.out.println(client.getServer().createChatRoom(chatRoomString));;
+                        System.out.println(client.getServer().createChatRoom(chatRoomString, ClientConfig.pseudo));;
                     } catch (RemoteException e) {
                         e.printStackTrace();
                         System.exit(1);
