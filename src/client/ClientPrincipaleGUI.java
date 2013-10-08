@@ -4,19 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.BindException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -29,16 +21,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class ClientPrincipaleGUI extends JFrame {
 
     private static final long serialVersionUID = 3572024391545427383L;
 
-    private int minWidth = 400;
+    private int maxWidth = 400;
 
-    private int minHeight = 600;
+    private int maxHeight = 600;
 
     private JTextField domaineNameZone;
 
@@ -68,7 +58,8 @@ public class ClientPrincipaleGUI extends JFrame {
         initializeChatRoomGui();
 
         this.add(principal);
-        this.setSize(minWidth, minHeight);
+        this.setSize(maxWidth, maxHeight);
+        this.setMaximumSize(new Dimension(maxWidth, maxHeight));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
