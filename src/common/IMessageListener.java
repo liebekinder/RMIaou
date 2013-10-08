@@ -20,4 +20,6 @@ public interface IMessageListener extends Remote{
 
     public void sendDeconnect() throws RemoteException;
 
+    public Object getPseudo() throws RemoteException;
+
 }

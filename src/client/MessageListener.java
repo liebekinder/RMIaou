@@ -35,4 +35,9 @@ public class MessageListener extends UnicastRemoteObject implements IMessageList
         if(colorWrapper!=null)colorWrapper.addFormatedText("You've been deconnected !\n");
     }
 
+
+    public Object getPseudo() throws RemoteException {
+        return ClientConfig.pseudo;
+    }
+
 }

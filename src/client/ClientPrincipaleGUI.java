@@ -107,6 +107,7 @@ public class ClientPrincipaleGUI extends JFrame {
         domaineNameZone.setText("MyFirstServer");
 
         JButton connectButton = new JButton("connect to server");
+
         connectButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
@@ -178,13 +179,27 @@ public class ClientPrincipaleGUI extends JFrame {
                 connectToChatRoom(chatRoomName.getText());
             }
         });
-
+        
+        JButton deleteButton = new JButton("Delete ChatRoom !");
+        
+        deleteButton.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    System.out.println(client.getServer().deleteChatRoom(chatRoomName.getText(), ClientConfig.pseudo));;
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        
         principalChatRoom.add(listScrollPane);
         principalChatRoom
                 .add(new JLabel(
                         "<html>Select or type the name of an existing chatroom<br/> or enter a new one to create it.</html>"));
         principalChatRoom.add(chatRoomName);
         principalChatRoom.add(goButton);
+        principalChatRoom.add(deleteButton);
     }
 
     /**
@@ -196,9 +211,10 @@ public class ClientPrincipaleGUI extends JFrame {
         changePanel(principalChatRoomGui);
         setTitle(ClientConfig.pseudo+"@"+chatRoomName);
         try {
-            client.connectToChatRoom(chatRoomName);
+            System.out.println(client.connectToChatRoom(chatRoomName));
         } catch (Exception e) {
             System.out.println("ERR: Cannot connect to chatroom. Aborting.");
+            e.printStackTrace();
             System.exit(1);
         }
         client.sendRaw(ClientConfig.pseudo + " join the chatroom.");

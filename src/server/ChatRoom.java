@@ -76,9 +76,13 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
     /**
      * Used by a client to subscribe to this chatroom
      */
-    public synchronized String register(int port) throws RemoteException {
+    public synchronized String register(int port, String pseudo) throws RemoteException {
         if(stopRegistration) return "ERR : ChatRoom not available !";
         synchronized (lock) {
+            
+            for(IMessageListener listener : remoteClientsList)
+                if(pseudo.equals((listener.getPseudo()))) return "ERR : Pseudo already in use in this chatroom !";
+            
             IMessageListener clientListener = null;
             try {
                 clientListener = (IMessageListener) Naming.lookup("rmi://"
@@ -91,7 +95,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
                 e.printStackTrace();
             }
 
-            remoteClientsList.add(new ClientRemoteListener(clientListener));
+            remoteClientsList.add(new ClientRemoteListener(clientListener, pseudo));
         }
         return "Register successfull !";
     }

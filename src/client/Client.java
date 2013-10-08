@@ -83,10 +83,10 @@ public class Client {
 	 * @throws MalformedURLException 
 	 * @throws RemoteException
 	 */
-	public void connectToChatRoom(String chatRoomName) throws MalformedURLException, RemoteException, NotBoundException {
+	public String connectToChatRoom(String chatRoomName) throws MalformedURLException, RemoteException, NotBoundException {
 		this.chatRoomName = chatRoomName;
         chatRoom = (IChatRoom) Naming.lookup("rmi://"+this.serverIp+":"+this.serverPort+"/"+this.serverName+"/"+this.chatRoomName);
-        chatRoom.register(clientPort);
+        return chatRoom.register(clientPort, ClientConfig.pseudo);
 	}
 
 	public void send(String message) {
