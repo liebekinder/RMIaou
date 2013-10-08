@@ -3,6 +3,7 @@ package client;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import client.colorWrapper.IColorWrapper;
 import common.IMessageListener;
 
 public class MessageListener extends UnicastRemoteObject implements IMessageListener{
@@ -11,20 +12,21 @@ public class MessageListener extends UnicastRemoteObject implements IMessageList
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private ClientChatRoomGUI gui;
+	private IColorWrapper colorWrapper;
 
-	protected MessageListener() throws RemoteException {
+	protected MessageListener(IColorWrapper colorWrapper) throws RemoteException {
 		super();
+		this.colorWrapper = colorWrapper;
 	}
 
 
 	public void sendMessage(String message) throws RemoteException {
-		if(gui!=null)gui.addText(message+"\n");
+		if(colorWrapper!=null)colorWrapper.addFormatedText(message+"\n");
 	}
 
 
     public void setOutputGui(ClientChatRoomGUI gui) {
-        this.gui = gui; 
+        colorWrapper.setOutputGui(gui); 
     }
 
 }

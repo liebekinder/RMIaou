@@ -8,6 +8,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import client.colorWrapper.ColorWrapperBase;
+import client.colorWrapper.ColorWrapperPseudo;
 import common.IChatRoom;
 import common.IChatRoomManager;
 
@@ -23,7 +25,8 @@ public class Client {
 	private MessageListener clientListener;
 
 	public Client(int clientPort) throws BindException, RemoteException, MalformedURLException, AlreadyBoundException {
-		clientListener = new MessageListener();
+		//Color wrapper can be changed.
+		clientListener = new MessageListener(new ColorWrapperPseudo());
 		this.clientPort = clientPort;
 		
 		LocateRegistry.createRegistry(clientPort); 

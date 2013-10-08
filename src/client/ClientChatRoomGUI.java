@@ -2,12 +2,25 @@ package client;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.BoxView;
+import javax.swing.text.ComponentView;
 import javax.swing.text.DefaultCaret;
+import javax.swing.text.Element;
+import javax.swing.text.IconView;
+import javax.swing.text.LabelView;
+import javax.swing.text.ParagraphView;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
+import javax.swing.text.View;
+import javax.swing.text.ViewFactory;
 
 /**
  * Generate a new GUI for the console.
@@ -57,6 +70,8 @@ public class ClientChatRoomGUI extends JTextPane {
      * @see ClientChatRoomGUI#setDefaultColorBackground(Color)
      */
 	private StyledDocument doc;
+
+	private ClientChatRoomGUI textPane;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -94,23 +109,27 @@ public class ClientChatRoomGUI extends JTextPane {
 	 * @param client 
      */
 	public ClientChatRoomGUI() {
-		
-		this.setSize(500, 500);
 
 		this.setEditable(false);
 		this.setBackground(defaultColorBackground);
 		this.setForeground(defaultColor);
-		//Ajout d'un scrollPane pour avoir des scrollBars
-//		JScrollPane scrollP = new JScrollPane(textPane);
+		
+		//wrap
+		this.setEditorKit(new WrapEditorKit());
+//		Ajout d'un scrollPane pour avoir des scrollBars
+//		JScrollPane scrollP = new JScrollPane(this);
 //		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		this.setContentPane(scrollP);
 			
 		DefaultCaret caret = (DefaultCaret)this.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
 		
 		//Contenu du textPane
 		doc = this.getStyledDocument();
+		
+		this.textPane = this;
 
 //		this.setVisible(true);	
 	}
@@ -167,11 +186,75 @@ public class ClientChatRoomGUI extends JTextPane {
         	}
         catch (BadLocationException e){}
         
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                int end = doc.getLength();
+                try {
+                	textPane.scrollRectToVisible(textPane.modelToView(end));
+                } catch (BadLocationException e) {
+                    throw new RuntimeException(e); // Should never get here.
+                }
+            }
+        });
+        
 
 	}
 
 	public void setMaxChar(int maxChar) {
 		this.maxChar = maxChar;
 	}
+	
+	private class WrapEditorKit extends StyledEditorKit {
+	        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+			ViewFactory defaultFactory=new WrapColumnFactory();
+	        public ViewFactory getViewFactory() {
+	            return defaultFactory;
+	        }
+
+	    }
+
+	 private class WrapColumnFactory implements ViewFactory {
+	        public View create(Element elem) {
+	            String kind = elem.getName();
+	            if (kind != null) {
+	                if (kind.equals(AbstractDocument.ContentElementName)) {
+	                    return new WrapLabelView(elem);
+	                } else if (kind.equals(AbstractDocument.ParagraphElementName)) {
+	                    return new ParagraphView(elem);
+	                } else if (kind.equals(AbstractDocument.SectionElementName)) {
+	                    return new BoxView(elem, View.Y_AXIS);
+	                } else if (kind.equals(StyleConstants.ComponentElementName)) {
+	                    return new ComponentView(elem);
+	                } else if (kind.equals(StyleConstants.IconElementName)) {
+	                    return new IconView(elem);
+	                }
+	            }
+
+	            // default to text display
+	            return new LabelView(elem);
+	        }
+	    }
+
+	    private class WrapLabelView extends LabelView {
+	        public WrapLabelView(Element elem) {
+	            super(elem);
+	        }
+
+	        public float getMinimumSpan(int axis) {
+	            switch (axis) {
+	                case View.X_AXIS:
+	                    return 0;
+	                case View.Y_AXIS:
+	                    return super.getMinimumSpan(axis);
+	                default:
+	                    throw new IllegalArgumentException("Invalid axis: " + axis);
+	            }
+	        }
+	    }
+	    
+	    
 
 }

@@ -4,19 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.BindException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -28,9 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class ClientPrincipaleGUI extends JFrame {
 
@@ -69,6 +60,7 @@ public class ClientPrincipaleGUI extends JFrame {
 
         this.add(principal);
         this.setSize(minWidth, minHeight);
+        this.setMaximumSize(new Dimension(minWidth, minHeight));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
@@ -88,7 +80,11 @@ public class ClientPrincipaleGUI extends JFrame {
         });
         chatRoomGui = new ClientChatRoomGUI();
         
-        principalChatRoomGui.add(chatRoomGui);
+		JScrollPane scrollP = new JScrollPane(chatRoomGui);
+		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        principalChatRoomGui.add(scrollP);
         principalChatRoomGui.add(chatRoomInput);
 
     }
