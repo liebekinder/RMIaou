@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
@@ -42,6 +43,7 @@ public class ClientGui extends JFrame {
 		JLabel port = new JLabel("server port:");
 		JTextField portValue = new JTextField("10010");
 		JButton connection = new JButton("connect");
+		JScrollPane listView = listView();
 		
 		c.gridy=0;
 		contentPane.add(chat,c);
@@ -60,6 +62,9 @@ public class ClientGui extends JFrame {
 		c.gridy=7;
 		contentPane.add(connection,c);
 		c.gridy=8;
+		c.weighty=3;
+		c.fill = -1;
+		contentPane.add(listView,c);
 		
 		
 		
@@ -80,9 +85,14 @@ public class ClientGui extends JFrame {
 		this.setVisible(true);
 	}
 	
-	public JList<String> listView(){
-		JList<String> list = new JList<String>();
-		return list;
+	public JScrollPane listView(){
+		String[] tabString = {};
+		JList<String> list = new JList<String>(tabString);
+		list.setLayoutOrientation(JList.VERTICAL);
+		
+		JScrollPane listScroller = new JScrollPane(list);
+		listScroller.setSize(new Dimension(100, 80));
+		return listScroller;
 	}
 
 }
