@@ -27,9 +27,9 @@ public class ClientPrincipaleGUI extends JFrame {
 
     private static final long serialVersionUID = 3572024391545427383L;
 
-    private int minWidth = 400;
+    private int maxWidth = 400;
 
-    private int minHeight = 600;
+    private int maxHeight = 600;
 
     private JTextField domaineNameZone;
 
@@ -59,8 +59,10 @@ public class ClientPrincipaleGUI extends JFrame {
         initializeChatRoomGui();
 
         this.add(principal);
-        this.setSize(minWidth, minHeight);
-        this.setMaximumSize(new Dimension(minWidth, minHeight));
+
+        this.setSize(maxWidth, maxHeight);
+        this.setMaximumSize(new Dimension(maxWidth, maxHeight));
+
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
