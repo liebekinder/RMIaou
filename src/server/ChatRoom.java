@@ -10,6 +10,8 @@ import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import common.IChatRoom;
 import common.IMessageListener;
@@ -36,6 +38,17 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 
     private Server server;
 
+    /**
+     * Timer used for purge chatroom when empty
+     */
+	private Timer timerChatroom;
+	
+	/**
+	 * Auto-cleaner timer
+	 */
+	private Timer timerCleaner;
+	
+
     public ChatRoom(String name, Server server, String owner)
             throws RemoteException, MalformedURLException,
             AlreadyBoundException {
@@ -44,10 +57,30 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         this.lock = new Lock();
         this.server = server;
         remoteClientsList = new ArrayList<IMessageListener>();
+        timerCleaner = new Timer();
+        timerChatroom = new Timer();
 
         Naming.bind(
                 "rmi://localhost:" + server.getPort() + "/" + server.getName()
                         + "/" + this.name, this);
+        
+        timerCleaner.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						/*
+						 * IsALive packet...
+						 */
+						diffuse(null);
+					}
+				}).start();
+				new Thread(new CleanRunnable()).start();
+			}
+		}, 0, ServerConfig.cleanDelay);
     }
 
     /**
@@ -64,6 +97,25 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
      */
     public String getName() {
         return name;
+    }
+    
+    /**
+     * Chatroom timeout timer
+     */
+    public void launchTimer() {
+    	timerChatroom.cancel();
+    	timerChatroom.purge();
+    	timerChatroom = new Timer();
+    	timerChatroom.schedule(new TimerTask() {
+    		  @Override
+    		  public void run() {
+    		    try {
+					delete();
+				} catch (RemoteException e) {
+					System.out.println("Auto-deletion for "+name+" failed !");
+				}
+    		  }
+    		}, ServerConfig.timeoutTime);
     }
     
     /**
@@ -87,13 +139,10 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
             try {
                 clientListener = (IMessageListener) Naming.lookup("rmi://"
                         + RemoteServer.getClientHost() + ":" + port + "/client");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            } catch (ServerNotActiveException e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {
+               	System.out.println("Failed to bind client !");
+               	return "Failed !";
+            } 
 
             remoteClientsList.add(new ClientRemoteListener(clientListener, pseudo));
         }
@@ -117,6 +166,13 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
             }
 
             new Thread(deleteThread).start();
+            try {
+				Naming.unbind(
+				        "rmi://localhost:" + server.getPort() + "/" + server.getName()
+				                + "/" + this.name);
+			} catch (Exception e) {
+				return "Cannot unbind chatroom but successfully deleted it";
+			} 
         }
         return "Chatroom "+name+" successfully deleted !";
     }
@@ -138,7 +194,10 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
             try {
                 listener.sendDeconnect();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                try {
+					System.out.println("Cannot deconnect "+listener.getPseudo());
+				} catch (RemoteException e1) {
+				}
             }
         }
         
@@ -207,6 +266,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
             if (((ClientRemoteListener) remoteMessageListener).isRemovable())
                 remoteClientsList.remove(remoteMessageListener);
         }
+        if(remoteClientsList.isEmpty()) launchTimer();
     }
 
     /**
@@ -263,5 +323,22 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         }
 
     }
+
+	@Override
+	public String deconnect(String pseudo) throws RemoteException {
+		synchronized (lock) {
+			IMessageListener toRemove = null;
+			for(IMessageListener listener : remoteClientsList) {
+				if(listener.getPseudo().equals(pseudo)) {
+					listener.sendDeconnect();
+					toRemove = listener;
+					break;
+				}
+			}
+			remoteClientsList.remove(toRemove);
+			if(remoteClientsList.isEmpty()) launchTimer();
+		}
+		return "Sucessfully deconnected !";
+	}
 
 }

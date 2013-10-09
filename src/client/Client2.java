@@ -96,7 +96,7 @@ public class Client2 {
 		chatRoom = (IChatRoom) Naming.lookup("rmi://" + this.serverIp + ":"
 				+ this.serverPort + "/" + this.serverName + "/"
 				+ this.chatRoomName);
-		chatRoom.register(clientPort);
+		chatRoom.register(clientPort, ClientConfig.pseudo);
 	}
 
 	public void send(String message) {

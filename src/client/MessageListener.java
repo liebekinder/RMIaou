@@ -21,7 +21,7 @@ public class MessageListener extends UnicastRemoteObject implements IMessageList
 
 
 	public void sendMessage(String message) throws RemoteException {
-		if(colorWrapper!=null)colorWrapper.addFormatedText(message+"\n");
+		if(colorWrapper!=null && message!=null)colorWrapper.addFormatedText(message+"\n");
 	}
 
 
