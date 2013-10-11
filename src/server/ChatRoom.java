@@ -70,7 +70,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 			public void run() {
 				new Thread(new Runnable() {
 					
-					@Override
 					public void run() {
 						/*
 						 * IsALive packet...
@@ -137,11 +136,14 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
             
             IMessageListener clientListener = null;
             try {
+                System.out.println("rmi://"
+                        + RemoteServer.getClientHost() + ":" + port + "/"+pseudo+"/"+this.name);
                 clientListener = (IMessageListener) Naming.lookup("rmi://"
-                        + RemoteServer.getClientHost() + ":" + port + "/client");
+                        + RemoteServer.getClientHost() + ":" + port + "/"+pseudo+"/"+this.name);
             } catch (Exception e) {
+                e.printStackTrace();
                	System.out.println("Failed to bind client !");
-               	return "Failed !";
+               	return "Failed to register client !";
             } 
 
             remoteClientsList.add(new ClientRemoteListener(clientListener, pseudo));
@@ -324,7 +326,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 
     }
 
-	@Override
 	public String deconnect(String pseudo) throws RemoteException {
 		synchronized (lock) {
 			IMessageListener toRemove = null;
@@ -341,7 +342,6 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
 		return "Sucessfully deconnected !";
 	}
 
-	@Override
 	public int getConnectedClients() throws RemoteException {
 		return remoteClientsList.size();
 	}

@@ -4,40 +4,52 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import client.colorWrapper.IColorWrapper;
+
 import common.IMessageListener;
 
-public class MessageListener extends UnicastRemoteObject implements IMessageListener{
 
-	/**
+
+public class MessageListener extends UnicastRemoteObject implements
+        IMessageListener {
+
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private IColorWrapper colorWrapper;
+    private static final long serialVersionUID = 1L;
 
-	protected MessageListener(IColorWrapper colorWrapper) throws RemoteException {
-		super();
-		this.colorWrapper = colorWrapper;
-	}
+    private IColorWrapper colorWrapper;
 
+    private String chatRoomName;
 
-	public void sendMessage(String message) throws RemoteException {
-		if(colorWrapper!=null && message!=null)colorWrapper.addFormatedText(message+"\n");
-	}
+    private Client2 client;
 
-
-    public void setOutputGui(ClientChatRoomGUI gui) {
-        colorWrapper.setOutputGui(gui); 
+    protected MessageListener(IColorWrapper colorWrapper, String chatRoomName, Client2 client)
+            throws RemoteException {
+        super();
+        this.colorWrapper = colorWrapper;
+        this.chatRoomName = chatRoomName;
+        this.client = client;
     }
 
-
-    public void sendDeconnect() throws RemoteException {
-        //TODO Déconnecter le client
-        if(colorWrapper!=null)colorWrapper.addFormatedText("You've been deconnected !\n");
+    public void sendMessage(String message) throws RemoteException {
+        if (colorWrapper != null && message != null)
+            colorWrapper.addFormatedText(message + "\n");
     }
 
+    public void setOutputGui(ChatRoomGui chatGui) {
+        colorWrapper.setOutputGui(chatGui);
+    }
+
+    public synchronized void sendDeconnect() throws RemoteException {
+        if(colorWrapper!=null) {
+            client.deleteChatRoom(chatRoomName);
+            colorWrapper.addFormatedText("You've been deconnected !\n");
+        }
+    }
 
     public Object getPseudo() throws RemoteException {
         return ClientConfig.pseudo;
     }
+    
 
 }

@@ -15,13 +15,13 @@ public class ColorWrapperPseudo extends ColorWrapperBase implements IColorWrappe
 		String[] pseudo = text.split("\\]");
 		if(pseudo.length>1) {
 			
-			chatRoomGui.addText("[",Color.RED);
-			chatRoomGui.addText(pseudo[0].substring(1), Color.LIGHT_GRAY);
-			chatRoomGui.addText("]",Color.RED);
-			chatRoomGui.addText(text.substring(pseudo[0].length()+1));
+			chatRoomGui.getClientChatRoomGui().addText("[",Color.RED);
+			chatRoomGui.getClientChatRoomGui().addText(pseudo[0].substring(1), Color.LIGHT_GRAY);
+			chatRoomGui.getClientChatRoomGui().addText("]",Color.RED);
+			chatRoomGui.getClientChatRoomGui().addText(text.substring(pseudo[0].length()+1));
 		}
 		else {
-			chatRoomGui.addText(text,Color.ORANGE);
+			chatRoomGui.getClientChatRoomGui().addText(text,Color.ORANGE);
 		}
 
 	}

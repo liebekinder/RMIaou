@@ -13,9 +13,11 @@ public class LaunchClient {
 	
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException, AlreadyBoundException {
 	    
+	    System.setProperty("java.rmi.server.hostname","192.168.0.12");
+	    
 		BasicConfigurator.configure();
 	    new ClientPrincipaleGUI();
-	    new ClientGui("RMIaou");
+//	    new ClientGui("RMIaou");
 //		Client client = new Client(10011);
 //		client.connectToServer("localhost", "MyFirstServer", 10010);
 //		Set<String> chatRoomList = client.getServer().getChatRoomsList();

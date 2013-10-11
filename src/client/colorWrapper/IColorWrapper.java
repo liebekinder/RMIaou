@@ -1,5 +1,6 @@
 package client.colorWrapper;
 
+import client.ChatRoomGui;
 import client.ClientChatRoomGUI;
 
 /**
@@ -17,7 +18,7 @@ public interface IColorWrapper {
 
 	/**
 	 * Set the output gui
-	 * @param gui
+	 * @param chatGui
 	 */
-	public void setOutputGui(ClientChatRoomGUI gui);
+	public void setOutputGui(ChatRoomGui chatGui);
 }

@@ -41,24 +41,24 @@ public class ClientPrincipaleGUI extends JFrame {
 
     private JPanel principalChatRoom;
 
-    private Client client;
+    private Client2 client;
 
     private JTextField chatRoomName;
 
-    private JPanel principalChatRoomGui;
+//    private JPanel principalChatRoomGui;
 
-    private ConstrainedTextField chatRoomInput;
+//    private ConstrainedTextField chatRoomInput;
 
     private JList<String> list;
 
-    private ClientChatRoomGUI chatRoomGui;
+//    private ClientChatRoomGUI chatRoomGui;
 
     public ClientPrincipaleGUI() {
         super();
 
         initializeConnectionView();
         initializeChatRoomSelection();
-        initializeChatRoomGui();
+//        initializeChatRoomGui();
 
         this.add(principal);
 
@@ -69,29 +69,29 @@ public class ClientPrincipaleGUI extends JFrame {
         this.setVisible(true);
     }
 
-    private void initializeChatRoomGui() {
-        principalChatRoomGui = new JPanel();
-        principalChatRoomGui.setLayout(new BoxLayout(principalChatRoomGui,
-                BoxLayout.PAGE_AXIS));
-        chatRoomInput = new ConstrainedTextField();
-        chatRoomInput.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-                client.send(chatRoomInput.getText());
-                chatRoomInput.setText("");
-
-            }
-        });
-        chatRoomGui = new ClientChatRoomGUI();
-        
-		JScrollPane scrollP = new JScrollPane(chatRoomGui);
-		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
-        principalChatRoomGui.add(scrollP);
-        principalChatRoomGui.add(chatRoomInput);
-
-    }
+//    private void initializeChatRoomGui() {
+//        principalChatRoomGui = new JPanel();
+//        principalChatRoomGui.setLayout(new BoxLayout(principalChatRoomGui,
+//                BoxLayout.PAGE_AXIS));
+//        chatRoomInput = new ConstrainedTextField();
+//        chatRoomInput.addActionListener(new ActionListener() {
+//
+//            public void actionPerformed(ActionEvent arg0) {
+//                client.send(chatRoomInput.getText());
+//                chatRoomInput.setText("");
+//
+//            }
+//        });
+//        chatRoomGui = new ClientChatRoomGUI();
+//        
+//		JScrollPane scrollP = new JScrollPane(chatRoomGui);
+//		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//        
+//        principalChatRoomGui.add(scrollP);
+//        principalChatRoomGui.add(chatRoomInput);
+//
+//    }
 
     private void initializeConnectionView() {
         principal = new JPanel();
@@ -208,16 +208,33 @@ public class ClientPrincipaleGUI extends JFrame {
      * @param source
      */
     protected void connectToChatRoom(String chatRoomName) {
-        changePanel(principalChatRoomGui);
-        setTitle(ClientConfig.pseudo+"@"+chatRoomName);
+        //TODO ouvrir gui de chat
+        // plus addMessageListener pour set la gui
+        
+//        MessageListener ml = null;
+//        try {
+//            ml = client.addMessageListener(chatRoomName);
+//        } catch (Exception e) {
+//            System.out.println("ERR: Failed to add listener to this chatRoom");
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
+        
+        ChatRoomWrapper chatRoom = null;
         try {
-            System.out.println(client.connectToChatRoom(chatRoomName));
+            chatRoom = client.connectToChatRoom(chatRoomName);
         } catch (Exception e) {
             System.out.println("ERR: Cannot connect to chatroom. Aborting.");
             e.printStackTrace();
             System.exit(1);
         }
-        client.sendRaw(ClientConfig.pseudo + " join the chatroom.");
+        
+//        new ChatRoomGui(chatRoom);
+//        ml.setOutputGui(chatGui);
+        
+        
+        
+        chatRoom.sendRaw(ClientConfig.pseudo + " join the chatroom.");
     }
 
     /**
@@ -229,9 +246,9 @@ public class ClientPrincipaleGUI extends JFrame {
         client = null;
         while (!portFound && port <= ClientConfig.maxPort) {
             try {
-                client = new Client(port);
+                client = new Client2(port);
                 portFound = true;
-                client.setOutputGui(chatRoomGui);
+//                client.setOutputGui(chatRoomGui);
             } catch (RemoteException e) {
                 if (e.getCause() instanceof BindException) {
                     System.out.println("ERR: port " + port

@@ -1,6 +1,6 @@
 package client.colorWrapper;
 
-import client.ClientChatRoomGUI;
+import client.ChatRoomGui;
 
 /**
  * Bas wrapper : do nothing.
@@ -9,16 +9,16 @@ import client.ClientChatRoomGUI;
  */
 public class ColorWrapperBase implements IColorWrapper{
 
-	protected ClientChatRoomGUI chatRoomGui;
+	protected ChatRoomGui chatRoomGui;
 
 	public ColorWrapperBase() {
 	}
 
 	public void addFormatedText(String text) {
-		chatRoomGui.addText(text);
+		chatRoomGui.getClientChatRoomGui().addText(text);
 	}
 
-	public void setOutputGui(ClientChatRoomGUI gui) {
+	public void setOutputGui(ChatRoomGui gui) {
 		chatRoomGui = gui;
 	}
 }
