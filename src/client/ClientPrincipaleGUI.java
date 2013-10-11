@@ -220,6 +220,11 @@ public class ClientPrincipaleGUI extends JFrame {
 //            System.exit(1);
 //        }
         
+        if(client.getConnectedChatRoomList().contains(chatRoomName)) {
+            System.out.println("User "+ClientConfig.pseudo+" already connected to this chatRoom !");
+            return;
+        }
+        
         ChatRoomWrapper chatRoom = null;
         try {
             chatRoom = client.connectToChatRoom(chatRoomName);

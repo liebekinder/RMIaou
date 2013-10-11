@@ -1,3 +1,6 @@
-Suppression d'une chat room quand personne ne s'y est connecté depuis x temps.
+
 Suppression après déconnection de tous les clients (droits liés au pseudo !)
 Gérer les cas où le client se connecte à des chatrooms/serveurs inexistants.
+
+
+Gestion déco : avertir les autres utilisateurs.

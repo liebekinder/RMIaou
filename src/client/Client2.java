@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -99,7 +100,7 @@ public class Client2 {
 
         clientConnectedChatRoomStructure.put(chatRoomName, couple);  
         
-
+        
         Naming.bind("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo + "/" + chatRoomName, ml);
         
         System.out.println(chatRoom.register(clientPort, ClientConfig.pseudo));
@@ -182,6 +183,10 @@ public class Client2 {
         public T2 getSecond() {
             return t2;
         }
+    }
+
+    public Set<String> getConnectedChatRoomList() {
+        return clientConnectedChatRoomStructure.keySet();
     }
 
 

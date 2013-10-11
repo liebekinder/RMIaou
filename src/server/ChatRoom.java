@@ -195,6 +195,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         public void run() {
             try {
                 listener.sendDeconnect();
+                diffuse(listener.getPseudo()+" have been deconnected.");
             } catch (RemoteException e) {
                 try {
 					System.out.println("Cannot deconnect "+listener.getPseudo()+". Is it already deconnected ?");

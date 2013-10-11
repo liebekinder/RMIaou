@@ -249,13 +249,17 @@ public class ClientGui extends JFrame implements ActionListener {
 //            System.exit(1);
 //        }
         
+        if(client.getConnectedChatRoomList().contains(chatRoomName)) {
+            logger.info("User "+ClientConfig.pseudo+" already connected to this chatRoom !");
+            return;
+        }
+        
         ChatRoomWrapper chatRoom = null;
         try {
             chatRoom = client.connectToChatRoom(chatRoomName);
         } catch (Exception e) {
             System.out.println("ERR: Cannot connect to chatroom. Aborting.");
-            e.printStackTrace();
-            System.exit(1);
+            return;
         }
         
 //        new ChatRoomGui(chatRoom);
