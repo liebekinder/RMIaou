@@ -10,16 +10,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="client.Client" project="RMIaou" file="/RMIaou/src/client/Client.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position x="1120" y="292" width="-1" height="-1"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="server.ChatRoom" project="RMIaou" file="/RMIaou/src/server/ChatRoom.java" 
+  <class id="2" language="java" name="server.ChatRoom" project="RMIaou" file="/RMIaou/src/server/ChatRoom.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position x="836" y="88" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -28,7 +19,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="client.MessageListener" project="RMIaou" 
+  <class id="3" language="java" name="client.MessageListener" project="RMIaou" 
     file="/RMIaou/src/client/MessageListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="1119" y="622" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -37,7 +28,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="server.ChatRoom.CleanRunnable" project="RMIaou" 
+  <class id="4" language="java" name="server.ChatRoom.CleanRunnable" project="RMIaou" 
     file="/RMIaou/src/server/ChatRoom.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="571" y="-5" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -46,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="server.ChatRoomManager" project="RMIaou" 
+  <class id="5" language="java" name="server.ChatRoomManager" project="RMIaou" 
     file="/RMIaou/src/server/ChatRoomManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="1724" y="653" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -55,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="server.ChatRoom.ClientSender" project="RMIaou" 
+  <class id="6" language="java" name="server.ChatRoom.ClientSender" project="RMIaou" 
     file="/RMIaou/src/server/ChatRoom.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="837" y="352" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -64,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="server.ClientRemoteListener" project="RMIaou" 
+  <class id="7" language="java" name="server.ClientRemoteListener" project="RMIaou" 
     file="/RMIaou/src/server/ClientRemoteListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="428" y="621" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -73,7 +64,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="9" language="java" name="common.IChatRoomManager" project="RMIaou" 
+  <interface id="8" language="java" name="common.IChatRoomManager" project="RMIaou" 
     file="/RMIaou/src/common/IChatRoomManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="1445" y="653" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -82,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="10" language="java" name="server.Server" project="RMIaou" file="/RMIaou/src/server/Server.java" 
+  <class id="9" language="java" name="server.Server" project="RMIaou" file="/RMIaou/src/server/Server.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position x="1447" y="348" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -91,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="11" language="java" name="common.IMessageListener" project="RMIaou" 
+  <interface id="10" language="java" name="common.IMessageListener" project="RMIaou" 
     file="/RMIaou/src/common/IMessageListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="834" y="628" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <interface id="12" language="java" name="client.colorWrapper.IColorWrapper" project="RMIaou" 
+  <interface id="11" language="java" name="client.colorWrapper.IColorWrapper" project="RMIaou" 
     file="/RMIaou/src/client/colorWrapper/IColorWrapper.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="1121" y="804" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="13" language="java" name="client.colorWrapper.ColorWrapperPseudo" project="RMIaou" 
+  <class id="12" language="java" name="client.colorWrapper.ColorWrapperPseudo" project="RMIaou" 
     file="/RMIaou/src/client/colorWrapper/ColorWrapperPseudo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="870" y="903" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -118,52 +109,52 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="client.colorWrapper.ColorWrapperBase" project="RMIaou" 
+  <class id="13" language="java" name="client.colorWrapper.ColorWrapperBase" project="RMIaou" 
     file="/RMIaou/src/client/colorWrapper/ColorWrapperBase.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="1125" y="1019" width="-1" height="-1"/>    
+    <position x="1131" y="970" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="client.ClientChatRoomGUI.WrapColumnFactory" project="RMIaou" 
+  <class id="14" language="java" name="client.ClientChatRoomGUI.WrapColumnFactory" project="RMIaou" 
     file="/RMIaou/src/client/ClientChatRoomGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="798" y="1526" width="-1" height="-1"/>    
+    <position x="1283" y="1502" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="client.ClientChatRoomGUI" project="RMIaou" 
+  <class id="15" language="java" name="client.ClientChatRoomGUI" project="RMIaou" 
     file="/RMIaou/src/client/ClientChatRoomGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="1127" y="1347" width="-1" height="-1"/>    
+    <position x="1508" y="1307" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="client.ClientChatRoomGUI.WrapEditorKit" project="RMIaou" 
+  <class id="16" language="java" name="client.ClientChatRoomGUI.WrapEditorKit" project="RMIaou" 
     file="/RMIaou/src/client/ClientChatRoomGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="798" y="1348" width="-1" height="-1"/>    
+    <position x="1209" y="1324" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="client.ClientChatRoomGUI.WrapLabelView" project="RMIaou" 
+  <class id="17" language="java" name="client.ClientChatRoomGUI.WrapLabelView" project="RMIaou" 
     file="/RMIaou/src/client/ClientChatRoomGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="790" y="1187" width="-1" height="-1"/>    
+    <position x="1234" y="1180" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="client.ClientConfig" project="RMIaou" file="/RMIaou/src/client/ClientConfig.java" 
+  <class id="18" language="java" name="client.ClientConfig" project="RMIaou" file="/RMIaou/src/client/ClientConfig.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position x="178" y="1053" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -172,43 +163,43 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="client.ClientGui" project="RMIaou" file="/RMIaou/src/client/ClientGui.java" 
+  <class id="19" language="java" name="client.ClientGui" project="RMIaou" file="/RMIaou/src/client/ClientGui.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position x="194" y="1241" width="-1" height="-1"/>    
+    <position x="194" y="1300" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="client.ClientPrincipaleGUI" project="RMIaou" 
+  <class id="20" language="java" name="client.ClientPrincipaleGUI" project="RMIaou" 
     file="/RMIaou/src/client/ClientPrincipaleGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="1450" y="1009" width="-1" height="-1"/>    
+    <position x="606" y="1506" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="client.ClientPrincipaleGUI.ConstrainedTextField" project="RMIaou" 
+  <class id="21" language="java" name="client.ClientPrincipaleGUI.ConstrainedTextField" project="RMIaou" 
     file="/RMIaou/src/client/ClientPrincipaleGUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position x="1455" y="1371" width="-1" height="-1"/>    
+    <position x="956" y="1552" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="client.LaunchClient" project="RMIaou" file="/RMIaou/src/client/LaunchClient.java" 
+  <class id="22" language="java" name="client.LaunchClient" project="RMIaou" file="/RMIaou/src/client/LaunchClient.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position x="183" y="1398" width="-1" height="-1"/>    
+    <position x="173" y="1521" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="server.LaunchServer" project="RMIaou" file="/RMIaou/src/server/LaunchServer.java" 
+  <class id="23" language="java" name="server.LaunchServer" project="RMIaou" file="/RMIaou/src/server/LaunchServer.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position x="183" y="900" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -217,7 +208,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="server.ChatRoom.Lock" project="RMIaou" file="/RMIaou/src/server/ChatRoom.java" 
+  <class id="24" language="java" name="server.ChatRoom.Lock" project="RMIaou" file="/RMIaou/src/server/ChatRoom.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position x="1061" y="-16" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -226,7 +217,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="server.ChatRoom.DeleteClient" project="RMIaou" 
+  <class id="25" language="java" name="server.ChatRoom.DeleteClient" project="RMIaou" 
     file="/RMIaou/src/server/ChatRoom.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="525" y="340" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -235,7 +226,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="server.ChatRoom.DeleteThread" project="RMIaou" 
+  <class id="26" language="java" name="server.ChatRoom.DeleteThread" project="RMIaou" 
     file="/RMIaou/src/server/ChatRoom.java" binary="false" corner="BOTTOM_RIGHT">    
     <position x="570" y="140" width="-1" height="-1"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -244,210 +235,296 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <nesting id="28">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="26"/>  
-  </nesting>  
-  <association id="29">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="30" name="lock"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
+  <class id="27" language="java" name="server.ServerConfig" project="RMIaou" file="/RMIaou/src/server/ServerConfig.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position x="310" y="783" width="105" height="117"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="client.Client2.Couple" project="RMIaou" file="/RMIaou/src/client/Client2.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position x="967" y="1168" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="client.ChatRoomGui" project="RMIaou" file="/RMIaou/src/client/ChatRoomGui.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position x="2009" y="1116" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="client.Client2" project="RMIaou" file="/RMIaou/src/client/Client2.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position x="730" y="783" width="255" height="261"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="client.ChatRoomWrapper" project="RMIaou" 
+    file="/RMIaou/src/client/ChatRoomWrapper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="2078" y="775" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="client.ChatRoomGui.ConstrainedTextField" project="RMIaou" 
+    file="/RMIaou/src/client/ChatRoomGui.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1967" y="1285" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="33">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="34" name="chatRoomTextField"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="32">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="33" name="textPane"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="35">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
   <nesting id="36">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="22"/>  
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="16"/>  
   </nesting>  
   <association id="37">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="38" name="client"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="38" name="chatRoomList"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="40">    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="41" name="listener"/>      
-      <multiplicity id="42" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="43">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
+  <realization id="40">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
   </realization>  
+  <association id="41">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="42" name="chatRoom"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <realization id="44">    
-    <end type="SOURCE" refId="8"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <nesting id="45">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <realization id="46">    
+    <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="11"/>  
   </realization>  
-  <association id="45">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="46" name="chatRoomGui"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+  <association id="47">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="48" name="chatRoomGui"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="49" name="clientListener"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
+  <association id="50">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="51" name="remoteMessageListener"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="51">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="52">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="11"/>  
-  </realization>  
   <association id="53">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="54" name="remoteMessageListener"/>      
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="54" name="colorWrapper"/>      
       <multiplicity id="55" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="56">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="57" name="clientListener"/>      
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="57" name="listener"/>      
       <multiplicity id="58" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="59">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="7"/>  
-  </nesting>  
-  <nesting id="60">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </nesting>  
-  <association id="61">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="62" name="server"/>      
-      <multiplicity id="63" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="64">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="65" name="chatRoom"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="67">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="68" name="server"/>      
-      <multiplicity id="69" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="70">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="71" name="chatRoomGui"/>      
-      <multiplicity id="72" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="73">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="18"/>  
-  </nesting>  
-  <realization id="74">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="12"/>  
+  <realization id="59">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
   </realization>  
-  <generalization id="75">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="14"/>  
+  <nesting id="60">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="28"/>  
+  </nesting>  
+  <realization id="61">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
   </generalization>  
-  <nesting id="76">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="27"/>  
-  </nesting>  
-  <association id="77">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="78" name="colorWrapper"/>      
-      <multiplicity id="79" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="80">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="25"/>  
-  </nesting>  
-  <association id="81">    
+  <association id="63">    
     <bendpoint x="670" y="258"/>    
     <bendpoint x="670" y="437"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="82" name="remoteClientsList"/>      
-      <multiplicity id="83" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="64" name="remoteClientsList"/>      
+      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="84">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="85" name="chatRoomList"/>      
-      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
+  <association id="66">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="67" name="clientListener"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="88" name="chatRoomInput"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="90">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="17"/>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
   </nesting>  
-  <realization id="91">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
+  <nesting id="70">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <association id="71">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="72" name="client"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="74">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <nesting id="75">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <realization id="76">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
   </realization>  
-  <nesting id="92">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="15"/>  
+  <association id="77">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="78" name="chatRoomInput"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="81" name="client"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="83">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <association id="84">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="85" name="chatRoom"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="87">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="25"/>  
   </nesting>  
-  <association id="93">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="94" name="chatRoomManager"/>      
-      <multiplicity id="95" minimum="0" maximum="1"/>    
+  <association id="88">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="89" name="server"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="92" name="server"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="95" name="textPane"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="97">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <nesting id="98">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="24"/>  
+  </nesting>  
+  <association id="99">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="100" name="lock"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="102">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <association id="103">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="104" name="client"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="107" name="chatRoomManager"/>      
+      <multiplicity id="108" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="110" name="clientConnectedChatRoomStructure"/>      
+      <multiplicity id="111" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
