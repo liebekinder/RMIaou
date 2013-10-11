@@ -152,7 +152,7 @@ public class Client2 {
     public synchronized void deleteChatRoom(String chatRoomName) {
         try {
             Naming.unbind("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo
-                    + "-" + chatRoomName);
+                    + "/" + chatRoomName);
         } catch (Exception e) {
             System.out.println("ERR: Cannot unbind chatRoom");
         }

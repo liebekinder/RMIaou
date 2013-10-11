@@ -32,4 +32,13 @@ public class ChatRoomWrapper {
         }
     }
 
+    public void deconnect() {
+        try {
+            chatRoom.deconnect(ClientConfig.pseudo);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 }

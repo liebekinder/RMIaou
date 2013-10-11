@@ -3,6 +3,8 @@ package client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -50,6 +52,43 @@ public class ChatRoomGui extends JFrame {
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
         listPane.add(scrollP);
         listPane.add(chatRoomInput);
+        
+        this.addWindowListener(new WindowListener() {
+            
+            public void windowOpened(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            public void windowIconified(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            public void windowDeiconified(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            public void windowDeactivated(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            public void windowClosing(WindowEvent arg0) {
+                chatRoom.deconnect();
+            }
+            
+            public void windowClosed(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            public void windowActivated(WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
         
         this.add(listPane);
         
