@@ -22,4 +22,6 @@ public interface IMessageListener extends Remote{
 
     public Object getPseudo() throws RemoteException;
 
+	public void actualise() throws RemoteException;
+
 }

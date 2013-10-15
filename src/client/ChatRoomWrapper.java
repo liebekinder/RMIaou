@@ -3,6 +3,7 @@ package client;
 import java.awt.Color;
 import java.rmi.RemoteException;
 
+import client.gui.ChatRoomGui;
 import common.IChatRoom;
 
 public class ChatRoomWrapper {

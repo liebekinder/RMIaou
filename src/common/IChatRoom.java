@@ -16,4 +16,5 @@ public interface IChatRoom extends Remote{
     public String delete() throws RemoteException;
     public String deconnect(String pseudo) throws RemoteException;
     public int getConnectedClients() throws RemoteException;
+	public String getName() throws RemoteException;
 }

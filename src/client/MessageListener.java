@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import client.colorWrapper.IColorWrapper;
-
+import client.gui.ChatRoomGui;
 import common.IMessageListener;
 
 
@@ -21,9 +21,9 @@ public class MessageListener extends UnicastRemoteObject implements
 
     private String chatRoomName;
 
-    private Client2 client;
+    private Client client;
 
-    protected MessageListener(IColorWrapper colorWrapper, String chatRoomName, Client2 client)
+    protected MessageListener(IColorWrapper colorWrapper, String chatRoomName, Client client)
             throws RemoteException {
         super();
         this.colorWrapper = colorWrapper;
@@ -44,12 +44,17 @@ public class MessageListener extends UnicastRemoteObject implements
         if(colorWrapper!=null) {
             client.deleteChatRoom(chatRoomName);
             colorWrapper.addFormatedText("You've been deconnected !\n");
+            colorWrapper.stopInputs();
         }
     }
 
     public Object getPseudo() throws RemoteException {
         return ClientConfig.pseudo;
     }
+
+	public void actualise() throws RemoteException {
+		client.actualise();
+	}
     
 
 }

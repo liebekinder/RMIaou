@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.BasicConfigurator;
 
+import client.gui.ClientGui;
+
 public class LaunchClient {
 
 

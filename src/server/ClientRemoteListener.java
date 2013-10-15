@@ -54,4 +54,8 @@ public class ClientRemoteListener implements IMessageListener {
         clientListener.sendDeconnect();
     }
 
+	public void actualise() throws RemoteException {
+		clientListener.actualise();
+	}
+
 }

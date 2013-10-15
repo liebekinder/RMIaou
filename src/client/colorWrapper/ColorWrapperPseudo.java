@@ -11,7 +11,8 @@ public class ColorWrapperPseudo extends ColorWrapperBase implements IColorWrappe
 
 	@Override
 	public void addFormatedText(String text) {
-
+		if(!inputs) return;
+		
 		String[] pseudo = text.split("\\]");
 		if(pseudo.length>1) {
 			

@@ -24,6 +24,7 @@ public class Server implements IChatRoomManager{
 	private String serverName;
 	private IChatRoomManager chatRoomManager;
 	private int port;
+	private SynchroChatRoom synchroChannel;
 	
 	public Server(String serverName, int port) throws RemoteException, MalformedURLException, AlreadyBoundException {
 		this.serverName = serverName;
@@ -34,6 +35,9 @@ public class Server implements IChatRoomManager{
 		//System.setProperty("java.rmi.server.hostname","192.168.0.17");
 		LocateRegistry.createRegistry(port); 
 		Naming.bind("rmi://localhost:" + this.port + "/"+this.serverName, chatRoomManager);
+		
+		//Synchronisation chatRoom
+		synchroChannel = new SynchroChatRoom("ServerMessages", this, "God");
 			
 	}
 
@@ -59,7 +63,17 @@ public class Server implements IChatRoomManager{
 			e.printStackTrace();
 		}
 		
+		notifyAllClients();
+		
 		return "S00: ChatRoom successfully created";
+	}
+
+
+	private void notifyAllClients() {
+		synchroChannel.notifyAllClients();
+//		for(IChatRoom chatRoom : chatRoomList.values()) {
+//			((ChatRoom) chatRoom).notifyAllClients();
+//		}
 	}
 
 
@@ -83,12 +97,14 @@ public class Server implements IChatRoomManager{
         if(!chatRoomToDelete.getOwner().equals(pseudo))
             return "ERR: You're not the owner of the chatroom";
         
+        
         return chatRoomToDelete.delete();
     }
 
 
     public void formallyDeleteChatRoom(String name) {
         chatRoomList.remove(name);
+        notifyAllClients();
     }
 
 

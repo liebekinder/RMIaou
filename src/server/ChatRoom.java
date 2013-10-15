@@ -92,7 +92,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
      * 
      * @return
      */
-    public String getName() {
+    public String getName() throws RemoteException {
         return name;
     }
     
