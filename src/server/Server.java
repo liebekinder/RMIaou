@@ -42,7 +42,12 @@ public class Server implements IChatRoomManager{
 	 * Get the list of chatRoom name's
 	 */
 	public HashSet<String> getChatRoomsList() throws RemoteException {
-		return new HashSet<String>(chatRoomList.keySet());
+		
+		HashSet<String> retour = new HashSet<String>();
+		for(String s : chatRoomList.keySet()) {
+			retour.add("["+chatRoomList.get(s).getConnectedClients()+"]"+s);
+		}
+		return retour;
 	}
 
 	/**
