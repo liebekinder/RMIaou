@@ -103,10 +103,10 @@ public class Client2 {
         try{
 	        logger.debug("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo + "/" + chatRoomName);
 	        Naming.bind("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo + "/" + chatRoomName, ml);
+//	        Naming.bind("rmi://localhost:10011/test", ml);
         }
         catch(Exception e){
-        	e.printStackTrace()
-        	;
+        	e.printStackTrace()        	;
         }
         
         

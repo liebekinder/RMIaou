@@ -30,7 +30,7 @@
 //		this.clientPort = clientPort;
 //		
 //		LocateRegistry.createRegistry(clientPort); 
-//		Naming.bind("rmi://localhost:"+clientPort+"/client", clientListener);
+//		Naming.bind("localhost:"+clientPort+"/client", clientListener);
 //	}
 //	
 //	/**
@@ -47,7 +47,7 @@
 //		this.serverName = serverName;
 //		this.serverPort = port;
 //		
-//        server = (IChatRoomManager) Naming.lookup("rmi://"+this.serverIp+":"+this.serverPort+"/"+this.serverName);
+//        server = (IChatRoomManager) Naming.lookup(""+this.serverIp+":"+this.serverPort+"/"+this.serverName);
 //	}
 //	
 //	/**
@@ -85,7 +85,7 @@
 //	 */
 //	public String connectToChatRoom(String chatRoomName) throws MalformedURLException, RemoteException, NotBoundException {
 //		this.chatRoomName = chatRoomName;
-//        chatRoom = (IChatRoom) Naming.lookup("rmi://"+this.serverIp+":"+this.serverPort+"/"+this.serverName+"/"+this.chatRoomName);
+//        chatRoom = (IChatRoom) Naming.lookup(""+this.serverIp+":"+this.serverPort+"/"+this.serverName+"/"+this.chatRoomName);
 //        return chatRoom.register(clientPort, ClientConfig.pseudo);
 //	}
 //
