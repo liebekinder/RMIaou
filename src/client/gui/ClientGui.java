@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.UnsupportedEncodingException;
 import java.net.BindException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -375,7 +376,7 @@ public class ClientGui extends JFrame implements ActionListener {
 	private void synchro() {
 		try {
 			client.connectToChatRoomNoGui("ServerMessages");
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+		} catch (MalformedURLException | RemoteException | NotBoundException | UnsupportedEncodingException e) {
 			logger.error("Synchronisation channel opening failed !");
 		}
 	}

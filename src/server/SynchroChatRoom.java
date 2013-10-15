@@ -1,6 +1,8 @@
 package server;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -51,7 +53,7 @@ public class SynchroChatRoom extends UnicastRemoteObject implements IChatRoom {
 
     public SynchroChatRoom(String name, Server server, String owner)
             throws RemoteException, MalformedURLException,
-            AlreadyBoundException {
+            AlreadyBoundException, UnsupportedEncodingException {
         this.name = name;
         this.owner = owner;
         this.lock = new Lock();
@@ -60,8 +62,7 @@ public class SynchroChatRoom extends UnicastRemoteObject implements IChatRoom {
         timerCleaner = new Timer();
 
         Naming.bind(
-                "rmi://localhost:" + server.getPort() + "/" + server.getName()
-                        + "/" + this.name, this);
+                "rmi://localhost:" + server.getPort() + "/" + URLEncoder.encode(server.getName()+ "/" + this.name, "UTF-8"), this);
         
         timerCleaner.schedule(new TimerTask() {
 			
@@ -121,7 +122,7 @@ public class SynchroChatRoom extends UnicastRemoteObject implements IChatRoom {
                 System.out.println("rmi://"
                         + RemoteServer.getClientHost() + ":" + port + "/"+pseudo+"/"+this.name);
                 clientListener = (IMessageListener) Naming.lookup("rmi://"
-                        + RemoteServer.getClientHost() + ":" + port + "/"+pseudo+"/"+this.name);
+                        + RemoteServer.getClientHost() + ":" + port + "/"+URLEncoder.encode(pseudo+"/"+this.name, "UTF-8"));
             } catch (Exception e) {
                 e.printStackTrace();
                	System.out.println("Failed to bind client !");
@@ -153,8 +154,7 @@ public class SynchroChatRoom extends UnicastRemoteObject implements IChatRoom {
             new Thread(deleteThread).start();
             try {
 				Naming.unbind(
-				        "rmi://localhost:" + server.getPort() + "/" + server.getName()
-				                + "/" + this.name);
+				        "rmi://localhost:" + server.getPort() + "/" + URLEncoder.encode(server.getName()+ "/" + this.name, "UTF-8"));
 			} catch (Exception e) {
 				return "Cannot unbind chatroom but successfully deleted it";
 			} 

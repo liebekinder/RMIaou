@@ -1,6 +1,8 @@
 package server;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -26,7 +28,7 @@ public class Server implements IChatRoomManager{
 	private int port;
 	private SynchroChatRoom synchroChannel;
 	
-	public Server(String serverName, int port) throws RemoteException, MalformedURLException, AlreadyBoundException {
+	public Server(String serverName, int port) throws RemoteException, MalformedURLException, AlreadyBoundException, UnsupportedEncodingException {
 		this.serverName = serverName;
 		chatRoomList = new HashMap<String, IChatRoom>();
 		this.chatRoomManager = new ChatRoomManager(this);
@@ -34,7 +36,7 @@ public class Server implements IChatRoomManager{
 
 		//System.setProperty("java.rmi.server.hostname","192.168.0.17");
 		LocateRegistry.createRegistry(port); 
-		Naming.bind("rmi://localhost:" + this.port + "/"+this.serverName, chatRoomManager);
+		Naming.bind("rmi://localhost:" + this.port + "/"+URLEncoder.encode(this.serverName, "UTF-8"), chatRoomManager);
 		
 		//Synchronisation chatRoom
 		synchroChannel = new SynchroChatRoom("ServerMessages", this, "God");
@@ -60,6 +62,8 @@ public class Server implements IChatRoomManager{
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (AlreadyBoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		

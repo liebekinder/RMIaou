@@ -1,7 +1,9 @@
 package client;
 
+import java.io.UnsupportedEncodingException;
 import java.net.BindException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -55,14 +57,14 @@ public class Client {
 	 * @throws MalformedURLException
 	 * @throws RemoteException
 	 * @throws AlreadyBoundException
+	 * @throws UnsupportedEncodingException 
 	 */
 	public ChatRoomWrapper connectToChatRoom(String chatRoomName)
 			throws MalformedURLException, RemoteException, NotBoundException,
-			AlreadyBoundException {
+			AlreadyBoundException, UnsupportedEncodingException {
 
 		IChatRoom chatRoom = (IChatRoom) Naming.lookup("rmi://" + this.serverIp
-				+ ":" + this.serverPort + "/" + this.serverName + "/"
-				+ chatRoomName);
+				+ ":" + this.serverPort + "/" +URLEncoder.encode( this.serverName + "/"+ chatRoomName, "UTF-8"));
 		MessageListener ml = new MessageListener(new ColorWrapperPseudo(),
 				chatRoomName, this);
 		ChatRoomWrapper chatRoomWrapper = new ChatRoomWrapper(chatRoom);
@@ -77,8 +79,7 @@ public class Client {
 		try {
 			logger.debug("rmi://localhost:" + clientPort + "/"
 					+ ClientConfig.pseudo + "/" + chatRoomName);
-			Naming.bind("rmi://localhost:" + clientPort + "/"
-					+ ClientConfig.pseudo + "/" + chatRoomName, ml);
+			Naming.bind("rmi://localhost:" + clientPort + "/"+ URLEncoder.encode(ClientConfig.pseudo + "/" + chatRoomName, "UTF-8"), ml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,18 +89,17 @@ public class Client {
 		return chatRoomWrapper;
 	}
 	
-	public void connectToChatRoomNoGui(String chatRoomName) throws MalformedURLException, RemoteException, NotBoundException {
+	public void connectToChatRoomNoGui(String chatRoomName) throws MalformedURLException, RemoteException, NotBoundException, UnsupportedEncodingException {
 		IChatRoom chatRoom = (IChatRoom) Naming.lookup("rmi://" + this.serverIp
-				+ ":" + this.serverPort + "/" + this.serverName + "/"
-				+ chatRoomName);
+				+ ":" + this.serverPort + "/" +URLEncoder.encode(this.serverName + "/"
+						+ chatRoomName, "UTF-8") );
 		MessageListener ml = new MessageListener(new ColorWrapperPseudo(),
 				chatRoomName, this);
 
 		try {
 			logger.debug("rmi://localhost:" + clientPort + "/"
 					+ ClientConfig.pseudo + "/" + chatRoomName);
-			Naming.bind("rmi://localhost:" + clientPort + "/"
-					+ ClientConfig.pseudo + "/" + chatRoomName, ml);
+			Naming.bind("rmi://localhost:" + clientPort + "/"+ URLEncoder.encode(ClientConfig.pseudo + "/" + chatRoomName, "UTF-8"), ml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,15 +116,16 @@ public class Client {
 	 * @throws NotBoundException
 	 * @throws MalformedURLException
 	 * @throws RemoteException
+	 * @throws UnsupportedEncodingException 
 	 */
 	public void connectToServer(String serverIp, String serverName, int port)
-			throws MalformedURLException, RemoteException, NotBoundException {
+			throws MalformedURLException, RemoteException, NotBoundException, UnsupportedEncodingException {
 		this.serverIp = serverIp;
 		this.serverName = serverName;
 		this.serverPort = port;
 
 		server = (IChatRoomManager) Naming.lookup("rmi://" + this.serverIp
-				+ ":" + this.serverPort + "/" + this.serverName);
+				+ ":" + this.serverPort + "/" + URLEncoder.encode(this.serverName, "UTF-8"));
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class Client {
 	public synchronized void deleteChatRoom(String chatRoomName) {
 		try {
 			Naming.unbind("rmi://localhost:" + clientPort + "/"
-					+ ClientConfig.pseudo + "/" + chatRoomName);
+					+ URLEncoder.encode(ClientConfig.pseudo + "/" + chatRoomName, "UTF-8"));
 		} catch (Exception e) {
 			System.out.println("ERR: Cannot unbind chatRoom");
 		}
