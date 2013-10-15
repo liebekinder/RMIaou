@@ -36,6 +36,7 @@ public class LaunchClient {
 
 		BasicConfigurator.configure();
 		// new ClientPrincipaleGUI();
+		
 		new ClientGui("RMIaou");
 		// Client client = new Client(10011);
 		// client.connectToServer("localhost", "MyFirstServer", 10010);
