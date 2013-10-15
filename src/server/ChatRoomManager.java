@@ -36,4 +36,8 @@ public class ChatRoomManager extends UnicastRemoteObject implements IChatRoomMan
         return server.deleteChatRoom(name, pseudo);
     }
 
+	public String getClients(String chatRoomName) throws RemoteException {
+		return server.getClients(chatRoomName);
+	}
+
 }

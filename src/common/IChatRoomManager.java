@@ -35,4 +35,6 @@ public interface IChatRoomManager extends Remote {
 	 * @throws RemoteException
 	 */
 	public String deleteChatRoom(String name, String pseudo) throws RemoteException;
+
+	public String getClients(String chatRoomName) throws RemoteException;
 }
