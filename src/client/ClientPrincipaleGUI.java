@@ -20,10 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
-
-import sun.misc.Cleaner;
 
 public class ClientPrincipaleGUI extends JFrame {
 
@@ -68,30 +65,6 @@ public class ClientPrincipaleGUI extends JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
-
-//    private void initializeChatRoomGui() {
-//        principalChatRoomGui = new JPanel();
-//        principalChatRoomGui.setLayout(new BoxLayout(principalChatRoomGui,
-//                BoxLayout.PAGE_AXIS));
-//        chatRoomInput = new ConstrainedTextField();
-//        chatRoomInput.addActionListener(new ActionListener() {
-//
-//            public void actionPerformed(ActionEvent arg0) {
-//                client.send(chatRoomInput.getText());
-//                chatRoomInput.setText("");
-//
-//            }
-//        });
-//        chatRoomGui = new ClientChatRoomGUI();
-//        
-//		JScrollPane scrollP = new JScrollPane(chatRoomGui);
-//		scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrollP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//        
-//        principalChatRoomGui.add(scrollP);
-//        principalChatRoomGui.add(chatRoomInput);
-//
-//    }
 
     private void initializeConnectionView() {
         principal = new JPanel();
@@ -292,6 +265,8 @@ public class ClientPrincipaleGUI extends JFrame {
             System.exit(1);
         }
         System.out.println("Succefully connected to server.");
+        
+        
         changePanel(principalChatRoom);
 
         Set<String> chatRoomList;

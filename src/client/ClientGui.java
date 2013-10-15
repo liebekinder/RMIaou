@@ -46,6 +46,8 @@ public class ClientGui extends JFrame implements ActionListener {
 
     private JTextField serverNameValue;
 
+	private JButton addChatRoom;
+
     public ClientGui(String frameName) {
         super(frameName);
 
@@ -136,8 +138,15 @@ public class ClientGui extends JFrame implements ActionListener {
         JScrollPane listView = listView();
         listView.setMinimumSize(new Dimension(390, 150));
 
-        JButton addChatRoom = new JButton("add a chatRoom");
+        addChatRoom = new JButton("add a chatRoom");
         addChatRoom.setEnabled(false);
+        addChatRoom.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+                addChatRoom();
+
+            }
+        });
 
         c.gridy = 0;
         c.weighty = 1;
@@ -170,7 +179,12 @@ public class ClientGui extends JFrame implements ActionListener {
         return contentPane;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    protected void addChatRoom() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
         logger.debug(e.getActionCommand());
         if (e.getActionCommand() == "quit") {
             this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
@@ -230,9 +244,10 @@ public class ClientGui extends JFrame implements ActionListener {
             return -1;
         }
         logger.info("Succefully connected to server.");
-
+        addChatRoom.setEnabled(true);
         // TODO => MAJ de l'interface
 
+        
         return 0;
     }
 
