@@ -273,7 +273,7 @@ public class ClientPrincipaleGUI extends JFrame {
         try {
             chatRoomList = client.getServer().getChatRoomsList();
             for (String chatRoomName : chatRoomList) {
-                listModel.addElement(chatRoomName);
+                listModel.addElement("["+client.getServer().getClients(chatRoomName)+"]"+chatRoomName);
             }
         } catch (RemoteException e) {
             System.out.println("ERR: Cannot fetch chatroom list. Aborting.");

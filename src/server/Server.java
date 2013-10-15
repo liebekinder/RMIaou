@@ -42,12 +42,7 @@ public class Server implements IChatRoomManager{
 	 * Get the list of chatRoom name's
 	 */
 	public HashSet<String> getChatRoomsList() throws RemoteException {
-		
-		HashSet<String> retour = new HashSet<String>();
-		for(String s : chatRoomList.keySet()) {
-			retour.add("["+chatRoomList.get(s).getConnectedClients()+"]"+s);
-		}
-		return retour;
+		return new HashSet<String>(chatRoomList.keySet());
 	}
 
 	/**
@@ -95,5 +90,12 @@ public class Server implements IChatRoomManager{
     public void formallyDeleteChatRoom(String name) {
         chatRoomList.remove(name);
     }
+
+
+	@Override
+	public String getClients(String chatRoomName) throws RemoteException {
+		if(!chatRoomList.containsKey(chatRoomName)) return "#";
+		return String.valueOf(chatRoomList.get(chatRoomName).getConnectedClients());
+	}
 
 }
