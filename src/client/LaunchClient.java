@@ -13,7 +13,7 @@ public class LaunchClient {
 	
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException, AlreadyBoundException {
 	    
-	    System.setProperty("java.rmi.server.hostname","192.168.0.12");
+//	    System.setProperty("java.rmi.server.hostname","192.168.0.12");
 	    
 		BasicConfigurator.configure();
 	    new ClientPrincipaleGUI();

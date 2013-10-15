@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.rmi.RemoteException;
 
 import common.IChatRoom;
@@ -7,6 +8,7 @@ import common.IChatRoom;
 public class ChatRoomWrapper {
     
     private IChatRoom chatRoom;
+	private ChatRoomGui gui;
 
     public ChatRoomWrapper(IChatRoom chatRoom) {
         this.chatRoom = chatRoom;
@@ -20,7 +22,10 @@ public class ChatRoomWrapper {
         try {
             chatRoom.send("[" + ClientConfig.pseudo + "] " + message);
         } catch (RemoteException e) {
-            e.printStackTrace();
+        	if(gui!=null) {
+        		gui.addText("Server does not respond. Disconnected.\n", Color.RED);
+        		deconnect();
+        	}
         }
     }
 
@@ -34,11 +39,15 @@ public class ChatRoomWrapper {
 
     public void deconnect() {
         try {
+        	gui.disableInput();
             chatRoom.deconnect(ClientConfig.pseudo);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
         }
     }
+
+	public void setOutputGui(ChatRoomGui chatRoom ) {
+		gui = chatRoom;
+	}
 
 }
