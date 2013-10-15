@@ -2,9 +2,7 @@ package client;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;

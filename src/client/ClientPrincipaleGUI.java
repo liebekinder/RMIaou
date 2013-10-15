@@ -181,17 +181,6 @@ public class ClientPrincipaleGUI extends JFrame {
      * @param source
      */
     protected void connectToChatRoom(String chatRoomName) {
-        //TODO ouvrir gui de chat
-        // plus addMessageListener pour set la gui
-        
-//        MessageListener ml = null;
-//        try {
-//            ml = client.addMessageListener(chatRoomName);
-//        } catch (Exception e) {
-//            System.out.println("ERR: Failed to add listener to this chatRoom");
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
         
         if(client.getConnectedChatRoomList().contains(chatRoomName)) {
             System.out.println("User "+ClientConfig.pseudo+" already connected to this chatRoom !");
@@ -253,7 +242,7 @@ public class ClientPrincipaleGUI extends JFrame {
             System.exit(1);
         }
 
-        // TODO demo version : ip and port fixed
+       
         try {
             client.connectToServer("localhost", domaineNameZone.getText(),
                     10010);

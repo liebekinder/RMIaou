@@ -1,7 +1,6 @@
 package client.colorWrapper;
 
 import client.ChatRoomGui;
-import client.ClientChatRoomGUI;
 
 /**
  * Color wrapper for chatroom gui

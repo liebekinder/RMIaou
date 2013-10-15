@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.text.html.ListView;
 
 import org.apache.log4j.Logger;
 
@@ -40,7 +39,7 @@ public class ClientGui extends JFrame implements ActionListener {
 
 	private int maxWidth = 400;
 
-	private int maxHeight = 600;
+	private int maxHeight = 650;
 
 	private Client2 client;
 
@@ -53,6 +52,14 @@ public class ClientGui extends JFrame implements ActionListener {
 	private JButton addChatRoom;
 
 	private DefaultListModel<String> listModel;
+
+	private JButton delChatRoom;
+
+	private JButton coChatRoom;
+
+	private JList<String> list;
+
+	private JTextField pseudolabValue;
 
 	public ClientGui(String frameName) {
 		super(frameName);
@@ -97,7 +104,7 @@ public class ClientGui extends JFrame implements ActionListener {
 	public JScrollPane listView() {
 
 		listModel = new DefaultListModel<String>();
-		JList<String> list = new JList<String>(listModel);
+		list = new JList<String>(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setSelectedIndex(0);
 		list.addMouseListener(new MouseAdapter() {
@@ -114,10 +121,6 @@ public class ClientGui extends JFrame implements ActionListener {
 			}
 		});
 
-		// String[] tabString = {};
-		// JList<String> list = new JList<String>(tabString);
-		// list.setLayoutOrientation(JList.VERTICAL);
-
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setSize(new Dimension(100, 80));
 		return listScroller;
@@ -132,8 +135,14 @@ public class ClientGui extends JFrame implements ActionListener {
 		ImageIcon img = new ImageIcon("ressources/chat.png");
 
 		JLabel chat = new JLabel(img);
-		JLabel ipdomain = new JLabel("server IP or domain name:");
 
+		JLabel pseudolab = new JLabel("your pseudo:");
+		pseudolabValue = new JTextField(ClientConfig.pseudo);
+		pseudolabValue.setMinimumSize(new Dimension(250, 20));
+		pseudolabValue.setHorizontalAlignment(SwingConstants.CENTER);
+		pseudolabValue.setCaretPosition(pseudolabValue.getText().length());
+		
+		JLabel ipdomain = new JLabel("server IP or domain name:");
 		ipdomainValue = new JTextField("localhost");
 		ipdomainValue.setMinimumSize(new Dimension(250, 20));
 		ipdomainValue.setHorizontalAlignment(SwingConstants.CENTER);
@@ -173,11 +182,46 @@ public class ClientGui extends JFrame implements ActionListener {
 			}
 		});
 
+		delChatRoom = new JButton("delete a chatRoom");
+		delChatRoom.setEnabled(false);
+		delChatRoom.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int index = list.getSelectedIndex();
+					if (index > -1) {
+						logger.info((client.getServer().deleteChatRoom(
+							listModel.get(index), ClientConfig.pseudo)));
+						actualiseListe();
+					}
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
+		coChatRoom = new JButton("connect to chatRoom");
+		coChatRoom.setEnabled(false);
+		coChatRoom.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				int index = list.getSelectedIndex();
+				if (index > -1) {
+					connectToChatRoom((String) listModel.get(index));
+				}
+			}
+		});
+
 		c.gridy = 0;
 		c.weighty = 1;
 		contentPane.add(chat, c);
 		c.gridy++;
 		c.weighty = 0;
+		contentPane.add(pseudolab, c);
+		c.gridy++;
+		contentPane.add(pseudolabValue, c);
+		c.gridy++;
 		contentPane.add(ipdomain, c);
 		c.gridy++;
 		contentPane.add(ipdomainValue, c);
@@ -197,6 +241,10 @@ public class ClientGui extends JFrame implements ActionListener {
 		c.weighty = 0;
 		c.gridy++;
 		contentPane.add(addChatRoom, c);
+		c.gridy++;
+		contentPane.add(delChatRoom, c);
+		c.gridy++;
+		contentPane.add(coChatRoom, c);
 
 		this.getRootPane().setDefaultButton(connection);
 		connection.requestFocus();
@@ -220,13 +268,14 @@ public class ClientGui extends JFrame implements ActionListener {
 				try {
 					logger.info(client.getServer().createChatRoom(
 							chatRoomString, ClientConfig.pseudo));
-					
+					actualiseListe();
+
 				} catch (RemoteException e) {
 					logger.error(e.getLocalizedMessage());
 					System.exit(1);
 				}
 			}
-			
+
 			connectToChatRoom(chatRoomString);
 		}
 	}
@@ -246,6 +295,7 @@ public class ClientGui extends JFrame implements ActionListener {
 	 * Connect this client to a server.
 	 */
 	protected int connect() {
+		ClientConfig.pseudo = pseudolabValue.getText();
 		int port = ClientConfig.minPort;
 		boolean portFound = false;
 		client = null;
@@ -292,21 +342,34 @@ public class ClientGui extends JFrame implements ActionListener {
 		}
 		logger.info("Succefully connected to server.");
 		
+		pseudolabValue.setEnabled(false);
+		ipdomainValue.setEnabled(false);
+		portValue.setEnabled(false);
+		serverNameValue.setEnabled(false);
+
 		addChatRoom.setEnabled(true);
-		
-		//MAJ GUI
-		Set<String> chatRoomList;
-        try {
-            chatRoomList = client.getServer().getChatRoomsList();
-            for (String chatRoomName : chatRoomList) {
-                listModel.addElement(chatRoomName);
-            }
-        } catch (RemoteException e) {
-            logger.error("ERR: Cannot fetch chatroom list. Aborting.");
-            System.exit(1);
-        }
-		
+		delChatRoom.setEnabled(true);
+		coChatRoom.setEnabled(true);
+
+		// MAJ GUI
+		actualiseListe();
+
 		return 0;
+	}
+
+	private void actualiseListe() {
+		Set<String> chatRoomList;
+		try {
+			listModel.clear();
+			chatRoomList = client.getServer().getChatRoomsList();
+			for (String chatRoomName : chatRoomList) {
+				listModel.addElement(chatRoomName);
+			}
+		} catch (RemoteException e) {
+			logger.error("ERR: Cannot fetch chatroom list. Aborting.");
+			System.exit(1);
+		}
+
 	}
 
 	protected void connectToChatRoom(String chatRoomName) {
