@@ -14,6 +14,7 @@ import org.apache.log4j.BasicConfigurator;
 
 public class LaunchClient {
 
+
 	public static void main(String[] args) throws MalformedURLException,
 			RemoteException, NotBoundException, AlreadyBoundException {
 

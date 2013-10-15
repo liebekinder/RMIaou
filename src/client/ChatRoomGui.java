@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,8 +27,7 @@ public class ChatRoomGui extends JFrame {
 
 
     public ChatRoomGui(ChatRoomWrapper chatRoomT) {
-        
-        
+    	
         JPanel listPane = new JPanel();
 //        listPane.setLayout();
         
@@ -44,6 +44,11 @@ public class ChatRoomGui extends JFrame {
             }
         });
         chatRoomTextField = new ClientChatRoomGUI();
+        
+
+    	chatRoomT.setOutputGui(this);
+        
+        
 
         JScrollPane scrollP = new JScrollPane(chatRoomTextField);
         scrollP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -113,5 +118,13 @@ public class ChatRoomGui extends JFrame {
     public ClientChatRoomGUI getClientChatRoomGui() {
         return chatRoomTextField;
     }
+
+	public void addText(String string, Color color) {
+		chatRoomTextField.addText(string, color);
+	}
+
+	public void disableInput() {
+		chatRoomInput.setEnabled(false);
+	}
 
 }

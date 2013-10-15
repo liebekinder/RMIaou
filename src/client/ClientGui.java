@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -284,5 +285,10 @@ public class ClientGui extends JFrame implements ActionListener {
         
         chatRoom.sendRaw(ClientConfig.pseudo + " join the chatroom.");
     }
+
+	public void addText(String string, Color red) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -91,22 +91,15 @@ public class Client2 {
         IChatRoom chatRoom = (IChatRoom) Naming.lookup("rmi://" + this.serverIp + ":"
                 + this.serverPort + "/" + this.serverName + "/"
                 + chatRoomName);
-        logger.debug("pass1");
         MessageListener ml = new MessageListener(new ColorWrapperPseudo(), chatRoomName, this);
-        logger.debug("pass2");
         ChatRoomWrapper chatRoomWrapper = new ChatRoomWrapper(chatRoom);
-        logger.debug("pass3");
         ChatRoomGui chatGui = new ChatRoomGui(chatRoomWrapper);
-        logger.debug("pass4");
         
         ml.setOutputGui(chatGui);
-        logger.debug("pass5");
         
         Couple<MessageListener, ChatRoomWrapper> couple = new Couple<MessageListener, ChatRoomWrapper>(ml, chatRoomWrapper);
-        logger.debug("pass6");
 
         clientConnectedChatRoomStructure.put(chatRoomName, couple);  
-        logger.debug("pass7");
         try{
 	        logger.debug("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo + "/" + chatRoomName);
 	        Naming.bind("rmi://localhost:" + clientPort + "/" + ClientConfig.pseudo + "/" + chatRoomName, ml);
@@ -116,10 +109,8 @@ public class Client2 {
         	e.printStackTrace()        	;
         }
         
-        logger.debug("pass8");
         
         System.out.println(chatRoom.register(clientPort, ClientConfig.pseudo));
-        logger.debug("pass9");
         
         return chatRoomWrapper;
     }
