@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.text.html.ListView;
 
 import org.apache.log4j.Logger;
 
@@ -211,19 +212,17 @@ public class ClientGui extends JFrame implements ActionListener {
 			boolean alreadyExists = false;
 
 			for (int i = 0; i < listModel.getSize(); ++i) {
-				//////// WWAAAAAAAAAAAAAAAARNING
-				//TODO
-				if (chatRoomString.equals(((String) listModel.get(i)).split("]")[1]))
+				if (chatRoomString.equals((String) listModel.get(i)))
 					alreadyExists = true;
 			}
 
 			if (!alreadyExists) {
 				try {
-					System.out.println(client.getServer().createChatRoom(
+					logger.info(client.getServer().createChatRoom(
 							chatRoomString, ClientConfig.pseudo));
-					;
+					
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getLocalizedMessage());
 					System.exit(1);
 				}
 			}
