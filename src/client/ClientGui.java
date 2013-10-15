@@ -1,19 +1,20 @@
 package client;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.BindException;
-import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.util.Set;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,270 +26,307 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import org.apache.log4j.Logger;
 
 public class ClientGui extends JFrame implements ActionListener {
 
-    private static final long serialVersionUID = 6945386908303590271L;
+	private static final long serialVersionUID = 6945386908303590271L;
 
-    private static Logger logger = Logger.getLogger(LaunchClient.class);
+	private static Logger logger = Logger.getLogger(LaunchClient.class);
 
-    private int maxWidth = 400;
+	private int maxWidth = 400;
 
-    private int maxHeight = 600;
+	private int maxHeight = 600;
 
-    private Client2 client;
+	private Client2 client;
 
-    private JTextField ipdomainValue;
+	private JTextField ipdomainValue;
 
-    private JTextField portValue;
+	private JTextField portValue;
 
-    private JTextField serverNameValue;
+	private JTextField serverNameValue;
 
 	private JButton addChatRoom;
 
-    public ClientGui(String frameName) {
-        super(frameName);
+	private DefaultListModel<String> listModel;
 
-        JMenuBar menuBar = getSpecificMenuBar();
-        JPanel contentPane = getClientJPanel();
+	public ClientGui(String frameName) {
+		super(frameName);
 
-        this.setContentPane(contentPane);
-        this.setSize(maxWidth, maxHeight);
-        this.setResizable(false);
-        this.setMaximumSize(new Dimension(maxWidth, maxHeight));
+		JMenuBar menuBar = getSpecificMenuBar();
+		JPanel contentPane = getClientJPanel();
 
-        WindowListener l = new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                logger.info("exit");
-                System.exit(0);
-            }
-        };
+		this.setContentPane(contentPane);
+		this.setSize(maxWidth, maxHeight);
+		this.setResizable(false);
+		this.setMaximumSize(new Dimension(maxWidth, maxHeight));
 
-        addWindowListener(l);
+		WindowListener l = new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				logger.info("exit");
+				System.exit(0);
+			}
+		};
 
-        this.setJMenuBar(menuBar);
-        this.setVisible(true);
-    }
+		addWindowListener(l);
 
-    private JMenuBar getSpecificMenuBar() {
+		this.setJMenuBar(menuBar);
+		this.setVisible(true);
+	}
 
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("File");
-        JMenuItem menuItemHelp = new JMenuItem("help");
-        menuItemHelp.setEnabled(false);
-        menuItemHelp.addActionListener(this);
-        menu.addSeparator();
-        JMenuItem menuItemQuit = new JMenuItem("quit");
-        menuItemQuit.addActionListener(this);
-        menu.add(menuItemHelp);
-        menu.add(menuItemQuit);
-        menuBar.add(menu);
-        return menuBar;
-    }
+	private JMenuBar getSpecificMenuBar() {
 
-    public JScrollPane listView() {
-        String[] tabString = {};
-        JList<String> list = new JList<String>(tabString);
-        list.setLayoutOrientation(JList.VERTICAL);
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		JMenuItem menuItemHelp = new JMenuItem("help");
+		menuItemHelp.setEnabled(false);
+		menuItemHelp.addActionListener(this);
+		menu.addSeparator();
+		JMenuItem menuItemQuit = new JMenuItem("quit");
+		menuItemQuit.addActionListener(this);
+		menu.add(menuItemHelp);
+		menu.add(menuItemQuit);
+		menuBar.add(menu);
+		return menuBar;
+	}
 
-        JScrollPane listScroller = new JScrollPane(list);
-        listScroller.setSize(new Dimension(100, 80));
-        return listScroller;
-    }
+	public JScrollPane listView() {
 
-    public JPanel getClientJPanel() {
-        JPanel contentPane = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.anchor = GridBagConstraints.NORTH;
+		listModel = new DefaultListModel<String>();
+		JList<String> list = new JList<String>(listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setSelectedIndex(0);
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				int index = -1;
+				@SuppressWarnings("unchecked")
+				JList<String> list = (JList<String>) evt.getSource();
+				if (evt.getClickCount() >= 2) {
+					index = list.locationToIndex(evt.getPoint());
+					if (index > -1) {
+						connectToChatRoom((String) listModel.get(index));
+					}
+				}
+			}
+		});
 
-        ImageIcon img = new ImageIcon("ressources/chat.png");
+		// String[] tabString = {};
+		// JList<String> list = new JList<String>(tabString);
+		// list.setLayoutOrientation(JList.VERTICAL);
 
-        JLabel chat = new JLabel(img);
-        JLabel ipdomain = new JLabel("server IP or domain name:");
+		JScrollPane listScroller = new JScrollPane(list);
+		listScroller.setSize(new Dimension(100, 80));
+		return listScroller;
+	}
 
-        ipdomainValue = new JTextField("localhost");
-        ipdomainValue.setMinimumSize(new Dimension(250, 20));
-        ipdomainValue.setHorizontalAlignment(SwingConstants.CENTER);
-        ipdomainValue.setCaretPosition(ipdomainValue.getText().length());
+	public JPanel getClientJPanel() {
+		JPanel contentPane = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.anchor = GridBagConstraints.NORTH;
 
-        JLabel serverName = new JLabel("server name:");
-        serverNameValue = new JTextField("MyFirstServer");
-        serverNameValue.setMinimumSize(new Dimension(250, 20));
-        serverNameValue.setHorizontalAlignment(SwingConstants.CENTER);
-        serverNameValue.setCaretPosition(serverNameValue.getText().length());
+		ImageIcon img = new ImageIcon("ressources/chat.png");
 
-        JLabel port = new JLabel("server port:");
-        portValue = new JTextField("10010");
-        portValue.setMinimumSize(new Dimension(250, 20));
-        portValue.setHorizontalAlignment(SwingConstants.CENTER);
-        portValue.setCaretPosition(portValue.getText().length());
+		JLabel chat = new JLabel(img);
+		JLabel ipdomain = new JLabel("server IP or domain name:");
 
-        JButton connection = new JButton("connect");
-        connection.addActionListener(new ActionListener() {
+		ipdomainValue = new JTextField("localhost");
+		ipdomainValue.setMinimumSize(new Dimension(250, 20));
+		ipdomainValue.setHorizontalAlignment(SwingConstants.CENTER);
+		ipdomainValue.setCaretPosition(ipdomainValue.getText().length());
 
-            public void actionPerformed(ActionEvent arg0) {
-                connect();
+		JLabel serverName = new JLabel("server name:");
+		serverNameValue = new JTextField("MyFirstServer");
+		serverNameValue.setMinimumSize(new Dimension(250, 20));
+		serverNameValue.setHorizontalAlignment(SwingConstants.CENTER);
+		serverNameValue.setCaretPosition(serverNameValue.getText().length());
 
-            }
-        });
+		JLabel port = new JLabel("server port:");
+		portValue = new JTextField("10010");
+		portValue.setMinimumSize(new Dimension(250, 20));
+		portValue.setHorizontalAlignment(SwingConstants.CENTER);
+		portValue.setCaretPosition(portValue.getText().length());
 
-        JScrollPane listView = listView();
-        listView.setMinimumSize(new Dimension(390, 150));
+		JButton connection = new JButton("connect");
+		connection.addActionListener(new ActionListener() {
 
-        addChatRoom = new JButton("add a chatRoom");
-        addChatRoom.setEnabled(false);
-        addChatRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				connect();
 
-            public void actionPerformed(ActionEvent arg0) {
-                addChatRoom();
+			}
+		});
 
-            }
-        });
+		JScrollPane listView = listView();
+		listView.setMinimumSize(new Dimension(390, 150));
 
-        c.gridy = 0;
-        c.weighty = 1;
-        contentPane.add(chat, c);
-        c.gridy++;
-        c.weighty = 0;
-        contentPane.add(ipdomain, c);
-        c.gridy++;
-        contentPane.add(ipdomainValue, c);
-        c.gridy++;
-        contentPane.add(serverName, c);
-        c.gridy++;
-        contentPane.add(serverNameValue, c);
-        c.gridy++;
-        contentPane.add(port, c);
-        c.gridy++;
-        contentPane.add(portValue, c);
-        c.gridy++;
-        c.weighty = 1;
-        contentPane.add(connection, c);
-        c.gridy++;
-        contentPane.add(listView, c);
-        c.weighty = 0;
-        c.gridy++;
-        contentPane.add(addChatRoom, c);
+		addChatRoom = new JButton("add a chatRoom");
+		addChatRoom.setEnabled(false);
+		addChatRoom.addActionListener(new ActionListener() {
 
-        this.getRootPane().setDefaultButton(connection);
-        connection.requestFocus();
+			public void actionPerformed(ActionEvent arg0) {
+				addChatRoom();
 
-        return contentPane;
-    }
+			}
+		});
 
-    protected void addChatRoom() {
-		// TODO Auto-generated method stub
-		
+		c.gridy = 0;
+		c.weighty = 1;
+		contentPane.add(chat, c);
+		c.gridy++;
+		c.weighty = 0;
+		contentPane.add(ipdomain, c);
+		c.gridy++;
+		contentPane.add(ipdomainValue, c);
+		c.gridy++;
+		contentPane.add(serverName, c);
+		c.gridy++;
+		contentPane.add(serverNameValue, c);
+		c.gridy++;
+		contentPane.add(port, c);
+		c.gridy++;
+		contentPane.add(portValue, c);
+		c.gridy++;
+		c.weighty = 1;
+		contentPane.add(connection, c);
+		c.gridy++;
+		contentPane.add(listView, c);
+		c.weighty = 0;
+		c.gridy++;
+		contentPane.add(addChatRoom, c);
+
+		this.getRootPane().setDefaultButton(connection);
+		connection.requestFocus();
+
+		return contentPane;
+	}
+
+	protected void addChatRoom() {
+		String chatRoomString = JForm.openForm(this);
+		logger.debug(chatRoomString);
+		if (chatRoomString != null && !chatRoomString.isEmpty()) {
+
+			boolean alreadyExists = false;
+
+			for (int i = 0; i < listModel.getSize(); ++i) {
+				//////// WWAAAAAAAAAAAAAAAARNING
+				//TODO
+				if (chatRoomString.equals(((String) listModel.get(i)).split("]")[1]))
+					alreadyExists = true;
+			}
+
+			if (!alreadyExists) {
+				try {
+					System.out.println(client.getServer().createChatRoom(
+							chatRoomString, ClientConfig.pseudo));
+					;
+				} catch (RemoteException e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+			}
+			
+			connectToChatRoom(chatRoomString);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-        logger.debug(e.getActionCommand());
-        if (e.getActionCommand() == "quit") {
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        }
-        if (e.getActionCommand() == "help") {
-            logger.info("this functionnality haven't been implemented yet!");
-        }
+		logger.debug(e.getActionCommand());
+		if (e.getActionCommand() == "quit") {
+			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
+		if (e.getActionCommand() == "help") {
+			logger.info("this functionnality haven't been implemented yet!");
+		}
 
-    }
+	}
 
-    /**
-     * Connect this client to a server.
-     */
-    protected int connect() {
-        int port = ClientConfig.minPort;
-        boolean portFound = false;
-        client = null;
-        while (!portFound && port <= ClientConfig.maxPort) {
-            try {
-                client = new Client2(port);
-                portFound = true;
-            } catch (RemoteException e) {
-                if (e.getCause() instanceof BindException) {
-                    logger.error("ERR: port " + port
-                            + " already bound. Trying another port.");
-                    port++;
-                } else {
-                    logger.error("ERR: Fatal error. Cannot bind client. Aborting.");
-                    e.printStackTrace();
-                    return -1;
-                }
+	/**
+	 * Connect this client to a server.
+	 */
+	protected int connect() {
+		int port = ClientConfig.minPort;
+		boolean portFound = false;
+		client = null;
+		while (!portFound && port <= ClientConfig.maxPort) {
+			try {
+				client = new Client2(port);
+				portFound = true;
+			} catch (RemoteException e) {
+				if (e.getCause() instanceof BindException) {
+					logger.error("ERR: port " + port
+							+ " already bound. Trying another port.");
+					port++;
+				} else {
+					logger.error("ERR: Fatal error. Cannot bind client. Aborting.");
+					e.printStackTrace();
+					return -1;
+				}
 
-            } catch (Exception e) {
-                logger.error("ERR: Fatal error. Cannot bind client. Aborting.");
-                return -1;
-            }
-        }
+			} catch (Exception e) {
+				logger.error("ERR: Fatal error. Cannot bind client. Aborting.");
+				return -1;
+			}
+		}
 
-        if (client == null) {
-            logger.error("ERR: Failed to create client instance. Aborting.");
-            return -1;
-        }
+		if (client == null) {
+			logger.error("ERR: Failed to create client instance. Aborting.");
+			return -1;
+		}
 
-        try {
-            int portGui = 10010;
-            try {
-                portGui = Integer.valueOf(portValue.getText());
-            } catch (NumberFormatException e) {
-                logger.error(e.getLocalizedMessage());
-                return -1;
-            }
-            client.connectToServer(ipdomainValue.getText(),
-                    serverNameValue.getText(), portGui);
+		try {
+			int portGui = 10010;
+			try {
+				portGui = Integer.valueOf(portValue.getText());
+			} catch (NumberFormatException e) {
+				logger.error(e.getLocalizedMessage());
+				return -1;
+			}
+			client.connectToServer(ipdomainValue.getText(),
+					serverNameValue.getText(), portGui);
 
-        } catch (Exception e) {
-            logger.error("ERR: Fatal error when connecting to server. Aborting.");
-            return -1;
-        }
-        logger.info("Succefully connected to server.");
-        addChatRoom.setEnabled(true);
-        // TODO => MAJ de l'interface
-
-        
-        return 0;
-    }
-
-    protected void connectToChatRoom(String chatRoomName) {
-        //TODO ouvrir gui de chat
-        // plus addMessageListener pour set la gui
-        
-//        MessageListener ml = null;
-//        try {
-//            ml = client.addMessageListener(chatRoomName);
-//        } catch (Exception e) {
-//            System.out.println("ERR: Failed to add listener to this chatRoom");
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-        
-        if(client.getConnectedChatRoomList().contains(chatRoomName)) {
-            logger.info("User "+ClientConfig.pseudo+" already connected to this chatRoom !");
-            return;
-        }
-        
-        ChatRoomWrapper chatRoom = null;
-        try {
-            chatRoom = client.connectToChatRoom(chatRoomName);
-        } catch (Exception e) {
-            System.out.println("ERR: Cannot connect to chatroom. Aborting.");
-            return;
-        }
-        
-//        new ChatRoomGui(chatRoom);
-//        ml.setOutputGui(chatGui);
-        
-        
-        
-        chatRoom.sendRaw(ClientConfig.pseudo + " join the chatroom.");
-    }
-
-	public void addText(String string, Color red) {
-		// TODO Auto-generated method stub
+		} catch (Exception e) {
+			logger.error("ERR: Fatal error when connecting to server. Aborting.");
+			return -1;
+		}
+		logger.info("Succefully connected to server.");
 		
+		addChatRoom.setEnabled(true);
+		
+		//MAJ GUI
+		Set<String> chatRoomList;
+        try {
+            chatRoomList = client.getServer().getChatRoomsList();
+            for (String chatRoomName : chatRoomList) {
+                listModel.addElement(chatRoomName);
+            }
+        } catch (RemoteException e) {
+            logger.error("ERR: Cannot fetch chatroom list. Aborting.");
+            System.exit(1);
+        }
+		
+		return 0;
+	}
+
+	protected void connectToChatRoom(String chatRoomName) {
+
+		if (client.getConnectedChatRoomList().contains(chatRoomName)) {
+			logger.info("User " + ClientConfig.pseudo
+					+ " already connected to this chatRoom !");
+			return;
+		}
+
+		ChatRoomWrapper chatRoom = null;
+		try {
+			chatRoom = client.connectToChatRoom(chatRoomName);
+		} catch (Exception e) {
+			System.out.println("ERR: Cannot connect to chatroom. Aborting.");
+			return;
+		}
+
+		chatRoom.sendRaw(ClientConfig.pseudo + " join the chatroom.");
 	}
 
 }
